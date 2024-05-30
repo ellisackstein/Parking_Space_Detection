@@ -8,6 +8,7 @@ def calculate_horizontal_distance(box1, box2):
 def find_smallest_car(detections):
     # Set initial smallest width to positive infinity
     smallest_width = float('inf')
+    smallest_height = 0
 
     boxes = detections.xyxy
     for box in boxes:
