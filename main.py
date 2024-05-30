@@ -20,7 +20,7 @@ detections = sv.Detections.from_inference(results)
 # sv.plot_image(annotated_image, (10, 10))
 
 # Determine the minimum car width
-min_car_width, min_car_height = find_smallest_car(detections)
+min_car_width = find_smallest_car(detections)
 
 # Extract car bounding boxes
 car_detections = extract_car_detections(detections)
@@ -33,11 +33,11 @@ annotated_image = image.copy()
 
 # Annotate the image with bounding boxes and labels for free parking spots
 for spot in free_spots:
-    box1, box2 = spot
-    x1 = int(box1[0] + box1[2])
-    y1 = int(box1[1])
-    x2 = int(box2[0])
-    y2 = int(box2[1] + box2[3])
+    left_car, right_car = spot
+    x1 = int(left_car[2])
+    y1 = int(left_car[1])
+    x2 = int(right_car[0])
+    y2 = int(right_car[3])
     cv2.rectangle(annotated_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
     cv2.putText(annotated_image, 'Free Spot', (x1 + 10, y1 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
