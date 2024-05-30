@@ -48,7 +48,7 @@
 # # Optionally save the result to a file
 # cv2.imwrite("motion_detected.jpg", frame2)
 
-import cv2
+
 import supervision as sv
 from inference.models.yolo_world.yolo_world import YOLOWorld
 import cv2
@@ -79,7 +79,7 @@ def calculate_iou(box1, box2):
     return iou
 
 
-def compare_detections(detections1, detections2, iou_threshold=0.95):
+def compare_detections(detections1, detections2, iou_threshold=0.70):
     """
     Compare two sets of detections and find unique detections in each set based on IoU.
 
@@ -152,4 +152,4 @@ def moving_vs_stat(path_1, path_2):
 
 
 # Example usage
-moving_vs_stat("20240426_125431.jpg", "20240426_125432.jpg")
+moving_vs_stat("frame_0002.jpg", "frame_0003.jpg")

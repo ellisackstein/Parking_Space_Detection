@@ -2,9 +2,9 @@ import cv2
 import supervision as sv
 from inference.models.yolo_world.yolo_world import YOLOWorld
 
-SOURCE_IMAGE_PATH = "w4.jpeg"
+SOURCE_IMAGE_PATH = "20240426_112730.jpg"
 model = YOLOWorld(model_id="yolo_world/l")
-classes = ["car", "tree", "person"]
+classes = ["car", "tree", "sidewalk", "pavement", "road", "street"]
 model.set_classes(classes)
 image = cv2.imread(SOURCE_IMAGE_PATH)
 results = model.infer(image)
