@@ -4,7 +4,7 @@ from inference.models.yolo_world.yolo_world import YOLOWorld
 from empty_spots import *
 
 
-SOURCE_IMAGE_PATH = "/Users/shiraadler/PycharmProjects/new/Parking_Space_Detection/test_img/amen.jpg"
+SOURCE_IMAGE_PATH = "/Users/shiraadler/PycharmProjects/new/Parking_Space_Detection/test_img/yas.jpg"
 model = YOLOWorld(model_id="yolo_world/l")
 classes = ["car", "tree", "person"]
 model.set_classes(classes)
