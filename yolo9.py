@@ -48,3 +48,6 @@ if image is not None:
 
 else:
     print("Error: Unable to read the image file.")
+
+def predict(path):
+    return

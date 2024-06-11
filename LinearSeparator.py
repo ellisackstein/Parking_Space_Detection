@@ -48,3 +48,6 @@ cv2.line(annotated_image, line_start, line_end, (0, 0, 255), 8)
 
 # Display the annotated image
 sv.plot_image(annotated_image, (10, 10))
+
+def find_linear_separator(frame):
+    return
