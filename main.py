@@ -1,11 +1,13 @@
 import cv2
+import matplotlib as plt
 import supervision as sv
 from inference.models.yolo_world.yolo_world import YOLOWorld
 from emptySpots import *
+from Preprocessing import preprocessing
 
-PARKING_AREA = {1:[], 2:[], 3:[]}
+PARKING_AREA = {1: [], 2: [], 3: []}
 
-SOURCE_IMAGE_PATH = "test_img/amen.jpg"
+SOURCE_IMAGE_PATH = "test_img/Screenshot 2024-06-03 122621.png"
 model = YOLOWorld(model_id="yolo_world/l")
 classes = ["car", "tree", "person"]
 model.set_classes(classes)
@@ -20,13 +22,48 @@ annotated_image = BOUNDING_BOX_ANNOTATOR.annotate(annotated_image, detections)
 annotated_image = LABEL_ANNOTATOR.annotate(annotated_image, detections)
 sv.plot_image(annotated_image, (10, 10))
 
+
+# from ultralytics import YOLO
+# import cv2
+# import matplotlib.pyplot as plt
+#
+# # Load a pretrained YOLOv8 segmentation model
+# model = YOLO('yolov9e-seg.pt')
+#
+# # Open the image file
+# image_path = "test_img/Screenshot 2024-06-03 122621.png"  # Update with your image path
+# image = cv2.imread(image_path)
+#
+# if image is not None:
+#     # Convert the image from BGR to RGB (matplotlib expects RGB images)
+#     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+#
+#     # Run YOLOv8 inference on the image
+#     results = model(image_rgb)
+#
+#     # Visualize the results on the image
+#     annotated_image = results[0].plot(show=False)  # Use show=False to get the image with annotations
+#
+#     # Display the annotated image
+#     plt.figure(figsize=(12, 8))
+#     plt.imshow(annotated_image)
+#     plt.axis('off')
+#     plt.title("YOLOv9 Inference")
+#     plt.show()
+# else:
+#     print("Error: Unable to read the image file.")
+
 # Step 1: Preprocessing video of destination
+# path = preprocessing("Scenes/scene1")
 
 # Step 2: Cancelling moving cars
 
+
 # Step 3: Distinguishing the parking areas
 
+
 # Step 4: Detecting empty parking spots
+
 
 # # Determine the minimum car width
 # min_car_width = find_smallest_car(detections)
