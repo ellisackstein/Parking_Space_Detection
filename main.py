@@ -1,33 +1,32 @@
 from Preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
-from yolo9 import predict
+from yolo import predict
 from parkingAreaIdentification import parking_mark
 from LinearSeparator import find_linear_separator
 
 PARKING_AREA = {1: [], 2: [], 3: []}
-SUPERVISED = True
+SUPERVISED = False
 
-# TODO: Elli
+
 # Step 1: Preprocessing video of destination
-path_1, path_2 = preprocessing("Scenes/scene1")
+path1, path2 = preprocessing("Scenes\scene1")
+# path1 = "test_img\Screenshot 2024-06-03 122521.png"
+# path2 = "test_img\Screenshot 2024-06-03 122621.png"
 
-# TODO: Elli
 # step 2: Get predictions
-predictions_1 = predict(path_1)
-predictions_2 = predict(path_1)
+detections1, annotated_image1 = predict(path1)
+detections2, annotated_image2 = predict(path2)
 
-# TODO: Elli
 # Step 3: Cancelling moving cars
-final_frame = cancel_moving_cars(path_1, path_2, predictions_1, predictions_2)
+detections, annotated_image = cancel_moving_cars(detections1, annotated_image1, detections2, annotated_image2)
 
-# TODO: Shira
 # Step 4: Distinguishing the parking areas
 if SUPERVISED:
-    final_frame = parking_mark(final_frame, PARKING_AREA[1])
+    # TODO: Shira
+    annotated_image = parking_mark(detections, annotated_image, PARKING_AREA[1])
 
 else:
-    # TODO: Elli
-    final_frame = find_linear_separator(final_frame)
+    annotated_image = find_linear_separator(detections, annotated_image)
 
 # TODO: Shira
 # Step 5: Detecting empty parking spots

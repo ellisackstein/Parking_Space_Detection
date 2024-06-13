@@ -35,7 +35,7 @@ def show_box(box, ax):
                                facecolor=(0, 0, 0, 0), lw=2))
 
 ################
-SOURCE_IMAGE_PATH = "/Users/shiraadler/PycharmProjects/new/Parking_Space_Detection/test_img/WhatsApp Image 2024-04-25 at 13.22.14.jpeg"
+SOURCE_IMAGE_PATH = "test_img/WhatsApp Image 2024-04-25 at 13.22.14.jpeg"
 model = YOLOWorld(model_id="yolo_world/l")
 classes = ["car"]
 model.set_classes(classes)

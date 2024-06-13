@@ -1,5 +1,4 @@
 import supervision as sv
-from inference.models.yolo_world.yolo_world import YOLOWorld
 import cv2
 import numpy as np
 
@@ -64,31 +63,9 @@ def compare_detections(detections1, detections2, iou_threshold=0.70):
     return unique_to_image1, unique_to_image2
 
 
-def moving_vs_stat(path_1, path_2):
-    # Load the model and set classes
-    model = YOLOWorld(model_id="yolo_world/l")
-    classes = ["car"]
-    model.set_classes(classes)
-
-    # Process the first image
-    image1 = cv2.imread(path_1)
-    results1 = model.infer(image1)
-    detections1 = sv.Detections.from_inference(results1)
-
-    # Process the second image
-    image2 = cv2.imread(path_2)
-    results2 = model.infer(image2)
-    detections2 = sv.Detections.from_inference(results2)
-
+def moving_vs_stat(detections1, annotated_image1, detections2, annotated_image2):
     # Compare detections
     unique_to_image1, unique_to_image2 = compare_detections(detections1, detections2)
-
-    # Annotate and display images
-    BOUNDING_BOX_ANNOTATOR = sv.BoundingBoxAnnotator(thickness=2)
-    LABEL_ANNOTATOR = sv.LabelAnnotator(text_thickness=2, text_scale=1, text_color=sv.Color.BLACK)
-
-    annotated_image1 = image1.copy()
-    annotated_image2 = image2.copy()
 
     # Annotate unique detections on each image
     for box in unique_to_image1:
@@ -103,14 +80,33 @@ def moving_vs_stat(path_1, path_2):
     sv.plot_image(annotated_image1, (10, 10))
     sv.plot_image(annotated_image2, (10, 10))
 
-
-def cancel_moving_cars(path_1, path_2, path1, path2):
-    return
+    return unique_to_image1, unique_to_image2
 
 
-# Example usage
-moving_vs_stat("test_img/Screenshot 2024-06-03 122521.png", "test_img/Screenshot 2024-06-03 122621.png")
-cancel_moving_cars("test_img/Screenshot 2024-06-03 122521.png", "test_img/Screenshot 2024-06-03 122621.png")
+def cancel_moving_cars(detections1, annotated_image1, detections2, annotated_image2):
+    """
+    Determine which set of unique detections has fewer items and return the original detections and annotated image
+    corresponding to that set.
+
+    Args:
+        unique_to_image1: List of detections unique to image 1.
+        annotated_image1: Annotated image corresponding to image 1.
+        unique_to_image2: List of detections unique to image 2.
+        annotated_image2: Annotated image corresponding to image 2.
+        detections1: Original detections object for image 1.
+        detections2: Original detections object for image 2.
+
+    Returns:
+        original_detections: Original detections object of the image with fewer unique detections.
+        original_annotated_image: Annotated image of the image with fewer unique detections.
+    """
+    unique_to_image1, unique_to_image2 = moving_vs_stat(detections1, annotated_image1, detections2, annotated_image2)
+    if len(unique_to_image1) <= len(unique_to_image2):
+        print("frame 1!")
+        return detections1, annotated_image1
+    else:
+        print("frame 2!")
+        return detections2, annotated_image2
 
 # import os
 # import cv2

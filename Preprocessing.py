@@ -34,8 +34,11 @@ def extract_frames(video_path, output_dir, step=30):
         current_frame += step_frames
         frame_number += 1
 
+    frame1, frame2 = f"frame_{frame_number -1 :04d}.jpg", f"frame_{frame_number -2:04d}.jpg"
+
     cap.release()
     print(f"Frames extracted from {video_path}")
+    return frame1, frame2
 
 
 def preprocessing(directory_path):
@@ -61,19 +64,15 @@ def preprocessing(directory_path):
                 newest_time = file_time
                 newest_file = filename
 
-    video_output_dir = ""
+    video_output_dir,  frame1, frame2 = "", "", ""
     if newest_file is not None:
         video_path = os.path.join(directory_path, newest_file)
 
         video_output_dir = os.path.join(directory_path, os.path.splitext(newest_file)[0])
         os.makedirs(video_output_dir, exist_ok=True)
-        extract_frames(video_path, video_output_dir)
+        frame1, frame2 = extract_frames(video_path, video_output_dir)
         print(f"Processed {newest_file}")
     else:
         print("No .mp4 files found in the directory.")
 
-    return video_output_dir
-
-
-# Example usage
-preprocessing("Scenes\scene1")
+    return video_output_dir + "\\" + frame1, video_output_dir + "\\" + frame2
