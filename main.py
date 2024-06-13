@@ -31,4 +31,3 @@ else:
 
 # TODO: Shira
 # Step 5: Detecting empty parking spots
-
