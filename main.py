@@ -2,7 +2,7 @@ from Preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import predict
 from parkingAreaIdentification import parking_mark
-from LinearSeparator import find_linear_separator
+from linearSeparator import find_linear_separator
 
 PARKING_AREA = {1: [], 2: [], 3: []}
 SUPERVISED = False
