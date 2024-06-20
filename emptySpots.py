@@ -1,3 +1,8 @@
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+
+
 def calculate_horizontal_distance(box1, box2):
     """
     Calculate the horizontal distance between two bounding boxes.
@@ -13,6 +18,7 @@ def calculate_horizontal_distance(box1, box2):
     center2 = (xl2 + xr2) / 2
     return abs(center1 - center2)
 
+
 def find_smallest_car(detections):
     # Set initial smallest width to positive infinity
     smallest_width = float('inf')
@@ -26,7 +32,6 @@ def find_smallest_car(detections):
             smallest_width = width
 
     return smallest_width
-
 
 
 def extract_car_detections(detections):
@@ -94,43 +99,58 @@ def free_parking_exact_coord(exact_detections, min_parking_spot_width):
     """
     Identify free parking spots based on the distance between car detections,
     ensuring no other car overlaps the free spot.
+
+    Arguments:
+    - exact_detections: List of arrays, where each array contains four arrays representing the (x, y) coordinates
+      of the top-left, top-right, bottom-right, and bottom-left corners of the bounding box.
+    - min_parking_spot_width: Minimum width required for a free parking spot.
+
+    Returns:
+    - free_spots: List of tuples, each containing two car detections that form the edges of a free parking spot.
     """
 
-    # Sort detections by the x-coordinate of the bounding boxes
-    exact_detections.sort(key=lambda x: x[0][0])
+    # Sort detections by the x-coordinate of the top-left corner of the bounding boxes
+    exact_detections.sort(key=lambda x: x[0][0][0])
     free_spots = []
 
     for i in range(len(exact_detections) - 1):
         # Define the potential free spot area
-        # x1: x-coordinate of the right edge of the current car
-        x1 = exact_detections[i][1][0]
-        # y1: y-coordinate of the top edge of the current car
-        y1 = exact_detections[i][0][1]
-        # x2: x-coordinate of the left edge of the next car
-        x2 = exact_detections[i + 1][0][0]
-        # y2: y-coordinate of the bottom edge of the next car
-        y2 = exact_detections[i + 1][2][1]
+
+        top_left_x_1 = exact_detections[i][0][0]  # top-left corner x
+        top_left_y_1 = exact_detections[i][0][1]  # top-left corner y
+
+        bottom_right_x_1 = exact_detections[i][1][0]  # bottom-right corner x
+        bottom_right_y_1 = exact_detections[i][1][1]  # bottom-right corner y
+
+        bottom_left_x_1 = exact_detections[i][2][0]  # bottom-left corner x
+        bottom_left_y_1 = exact_detections[i][2][1]  # bottom-left corner y
+
+        top_right_x_1 = exact_detections[i][3][0]  # top-right corner x
+        top_right_y_1 = exact_detections[i][3][1]  # top-right corner y
 
         # Check for overlaps with other cars
         overlap = False
         for j in range(len(exact_detections)):
             if j != i and j != i + 1:
-                car_x1 = exact_detections[j][0][0]  # top-left corner x
-                car_y1 = exact_detections[j][0][1]  # top-left corner y
-                car_x2 = exact_detections[j][1][0]  # top-right corner x
-                car_y2 = exact_detections[j][2][1]  # bottom-right corner y
+                top_left_x_2 = exact_detections[j][0][0]
+                bottom_right_x_2 = exact_detections[j][1][0]
+                bottom_left_x_2 = exact_detections[j][2][0]
+                top_right_x_2 = exact_detections[j][3][0]
 
-                if not (
-                        car_x2 <= x1 or car_x1 >= x2 or car_y2 <= y1 or car_y1 >= y2):
+                if not (top_left_x_2 <= top_right_x_1 or
+                        bottom_left_x_2 <= bottom_right_x_1 or
+                        top_right_x_2 <= top_right_x_1 or
+                        bottom_right_x_2 <= bottom_right_x_1):
                     overlap = True
                     break
 
         if not overlap:
             # Calculate the horizontal distance between the current car and the next car
             distance = horizontal_distance_exact_coord(exact_detections[i],
-                                                     exact_detections[i + 1])
+                                                       exact_detections[i + 1])
             if distance > min_parking_spot_width:
-                free_spots.append((exact_detections[i], exact_detections[i + 1]))
+                free_spots.append(
+                    (exact_detections[i], exact_detections[i + 1]))
 
     return free_spots
 
@@ -140,17 +160,43 @@ def horizontal_distance_exact_coord(box1, box2):
        Calculate the horizontal distance between two bounding boxes.
 
        Args:
-           box1: [(x1, y1), (x2, y2), (x3, y3), (x4, y4)]
-           box2: [(x1, y1), (x2, y2), (x3, y3), (x4, y4)]
+           box1: [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+           box2: [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+           in that order :
+                    [[top_left], [bottom_right], [bottom_left], [top_right]]
 
        Returns:
            float: The horizontal distance between the centers of the two bounding boxes.
        """
-    xl1 = box1[0][0]  # top-left x
-    xr1 = box1[1][0]  # top-right x
-    xl2 = box2[0][0]  # top-left x of next car
-    xr2 = box2[1][0]  # top-right x of next car
+    t_r_x1 = box1[3][0]  # top-left x
+    b_r_x1 = box1[1][0]  # top-right x
+    t_l_x2 = box2[0][0]  # top-left x of next car
+    b_l_x2 = box2[2][0]  # top-right x of next car
 
-    center1 = (xl1 + xr1) / 2
-    center2 = (xl2 + xr2) / 2
+    center1 = (t_r_x1 + b_r_x1) / 2
+    center2 = (t_l_x2 + b_l_x2) / 2
     return abs(center1 - center2)
+
+
+def display_empty_spot(image, points, color=(0, 0, 255)):
+    """
+        Display the colored area within the given four points on the image.
+
+        Arguments:
+        - image: np.ndarray, the original image.
+        - points: List of lists, each list containing the [x, y] coordinates of the four points.
+        - color: Tuple, BGR color value to fill the area.
+        """
+    # Convert the list of points to a NumPy array of type int32
+    pts = np.array(points, dtype=np.int32)
+
+    # Reshape the points to form a contour
+    pts = pts.reshape((-1, 1, 2))
+
+    # Fill the area within the points
+    cv2.fillPoly(image, [pts], color)
+
+    # Convert BGR image to RGB for displaying with matplotlib
+    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    plt.axis('off')
+    plt.show()
