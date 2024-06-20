@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import supervision as sv
-from inference.models.yolo_world.yolo_world import YOLOWorld
 
 
 def find_linear_separator(detections, annotated_image):
@@ -29,6 +28,11 @@ def find_linear_separator(detections, annotated_image):
     # Draw the horizontal separator line
     cv2.line(annotated_image, line_start, line_end, (0, 0, 255), 8)
 
-    # Display the annotated image
-    sv.plot_image(annotated_image, (10, 10))
-    return annotated_image
+    # Define the two parts of the image based on the separator line
+    part1 = [0, image_width, line_y, image_height]
+    part2 = [0, image_width, 0, line_y]
+
+    # Optionally display the annotated image with the separator
+    # sv.plot_image(annotated_image, (10, 10)) # Uncomment to display the image
+
+    return [("unknown", [part1]), ("unknown",[part2])]

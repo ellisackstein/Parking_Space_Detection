@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test29</folder>
+	<filename>57.png</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Scene2\test29\57.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>moving car</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>304</xmin>
+			<ymin>360</ymin>
+			<xmax>632</xmax>
+			<ymax>521</ymax>
+		</bndbox>
+	</object>
+</annotation>
