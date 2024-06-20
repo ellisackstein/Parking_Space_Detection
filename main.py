@@ -1,4 +1,4 @@
-from Preprocessing import preprocessing
+from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import predict
 from parkingAreaIdentification import parking_mark

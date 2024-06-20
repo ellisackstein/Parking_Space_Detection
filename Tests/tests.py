@@ -124,7 +124,7 @@ def cancel_moving_cars(detections1, annotated_image1, detections2, annotated_ima
 
 
 # Define your base directory containing test directories
-base_directory = '../Tests/Scene2'
+base_directory = '../Tests/moving_cars/Scene2'
 
 # Run the processing function
 process_test_directories(base_directory)
