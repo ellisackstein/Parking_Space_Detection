@@ -10,9 +10,9 @@ PARKING_AREA = {1: [], 2: [], 3: []}
 SUPERVISED = False
 
 # Step 1: Preprocessing video of destination
-path1, path2 = preprocessing("Scenes\scene1")
-# path1 = "test_img\Screenshot 2024-06-03 122521.png"
-# path2 = "test_img\Screenshot 2024-06-03 122621.png"
+#path1, path2 = preprocessing("Scenes\scene1")
+path1 = "test_img/amen.jpg"
+path2 = "test_img/amen.jpg"
 
 # step 2: Get predictions
 detections1, annotated_image1 = predict(path1)
@@ -29,18 +29,23 @@ if SUPERVISED:
                                    PARKING_AREA[1])
 
 else:
-    annotated_image = find_linear_separator(detections, annotated_image)
+    #annotated_image = find_linear_separator(detections, annotated_image)
 
     # TODO: Shira
     # Step 5: Detecting empty parking spots
 
     smallest_car_in_scene = find_smallest_car(detections)
 
-    exact_detections = get_edge_points(detections, annotated_image)
+    car_detections = extract_car_detections(detections)
+
+    image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+    exact_detections = get_edge_points(car_detections, image)
 
     # displaying the points
     for cord in exact_detections:
-        display_edge_points(annotated_image, exact_detections)
+        display_edge_points(image, cord)
 
-    free_parking_between_cars(exact_detections, smallest_car_in_scene)
+    #free_parking_between_cars(exact_detections, smallest_car_in_scene)
+    print(free_parking_exact_coord(exact_detections,smallest_car_in_scene))
+
 

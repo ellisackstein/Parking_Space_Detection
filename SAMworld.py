@@ -83,8 +83,7 @@ def show_box(box, ax):
 
 
 ################
-SOURCE_IMAGE_PATH = "/Users/shiraadler/PycharmProjects/" \
-                    "new/Parking_Space_Detection/test_img/20240426_111900.jpg"
+SOURCE_IMAGE_PATH = "/Users/shiraadler/PycharmProjects/new/Parking_Space_Detection/test_img/20240426_122224.jpg"
 model = YOLOWorld(model_id="yolo_world/l")
 classes = ["car"]
 model.set_classes(classes)
@@ -113,11 +112,11 @@ for box in car_detections:
         box=box,
         multimask_output=False, )
 
-    mask_edge_points = get_mask_edge_points(masks)
-    print(mask_edge_points)
+    #mask_edge_points = get_mask_edge_points(masks)
+    #print(mask_edge_points)
     # plt.figure(figsize=(10, 10))
     # plt.imshow(image)
-    display_edge_points(image, mask_edge_points)
+    #display_edge_points(image, mask_edge_points)
     # show_mask(masks[0], plt.gca())
     # show_box(box, plt.gca())
     # plt.axis('off')
