@@ -21,7 +21,7 @@ def get_mask_edge_points(masks: np.ndarray):
       and (H, W) is the height and width of the original image.
 
     Returns:
-    - edge_points (List[np.ndarray]): A list of arrays,
+    - edge_points [np.ndarray]: A list of arrays,
       each of shape 4x2, where each array contains the (x, y) coordinates
       of the four edge points of a mask.
     """
@@ -36,12 +36,12 @@ def get_mask_edge_points(masks: np.ndarray):
                 [[None, None], [None, None], [None, None], [None, None]]))
             continue
         # Get the edge points
-        top_most = coords[np.argmin(coords[:, 0])]
-        bottom_most = coords[np.argmax(coords[:, 0])]
-        left_most = coords[np.argmin(coords[:, 1])]
-        right_most = coords[np.argmax(coords[:, 1])]
+        top_left = coords[np.argmin(coords[:, 0])]
+        bottom_right = coords[np.argmax(coords[:, 0])]
+        bottom_left = coords[np.argmin(coords[:, 1])]
+        top_right = coords[np.argmax(coords[:, 1])]
         edge_points_list.append(
-            np.array([top_most, bottom_most, left_most, right_most]))
+            [top_left, bottom_right, bottom_left, top_right])
 
     return edge_points_list
 
@@ -55,10 +55,14 @@ def display_edge_points(image: np.ndarray, edge_points_list: np.ndarray):
     - edge_points_list (List[np.ndarray]): A list of arrays, each containing the (x, y) coordinates
       of the four edge points of a mask.
     """
+    colors = [(0, 255, 0), (0, 0, 255), (255, 0, 0), (0, 255, 255)]
+    i = 0
+
     for edge_points in edge_points_list:
         for point in edge_points:
             if point[0] is not None and point[1] is not None:
-                cv2.circle(image, (point[1], point[0]), 5, (0, 255, 0), -1)
+                cv2.circle(image, (point[1], point[0]), 5, colors[i], -1)
+                i += 1
 
     plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     plt.show()
@@ -104,6 +108,9 @@ sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 predictor = SamPredictor(sam)
 predictor.set_image(image)
 
+exact_coordinates = []
+
+car_detections.sort(key=lambda x: x[0])
 for box in car_detections:
     # input_box = np.array([425, 600, 700, 875])
     masks, _, _ = predictor.predict(
@@ -112,12 +119,12 @@ for box in car_detections:
         box=box,
         multimask_output=False, )
 
-    #mask_edge_points = get_mask_edge_points(masks)
-    #print(mask_edge_points)
+    mask_edge_points = get_mask_edge_points(masks)
+    exact_coordinates.append(mask_edge_points)
+    # print(mask_edge_points)
     # plt.figure(figsize=(10, 10))
     # plt.imshow(image)
     #display_edge_points(image, mask_edge_points)
     # show_mask(masks[0], plt.gca())
     # show_box(box, plt.gca())
     # plt.axis('off')
-

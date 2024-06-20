@@ -13,7 +13,7 @@ def get_mask_edge_points(masks: np.ndarray):
       and (H, W) is the height and width of the original image.
 
     Returns:
-    - edge_points (List[np.ndarray]): A list of arrays,
+    - edge_points [np.ndarray]: A list of arrays,
       each of shape 4x2, where each array contains the (x, y) coordinates
       of the four edge points of a mask.
     """
@@ -28,17 +28,17 @@ def get_mask_edge_points(masks: np.ndarray):
                 [[None, None], [None, None], [None, None], [None, None]]))
             continue
         # Get the edge points
-        top_most = coords[np.argmin(coords[:, 0])]
-        bottom_most = coords[np.argmax(coords[:, 0])]
-        left_most = coords[np.argmin(coords[:, 1])]
-        right_most = coords[np.argmax(coords[:, 1])]
+        top_left = coords[np.argmin(coords[:, 0])]
+        bottom_right = coords[np.argmax(coords[:, 0])]
+        bottom_left = coords[np.argmin(coords[:, 1])]
+        top_right = coords[np.argmax(coords[:, 1])]
         edge_points_list.append(
-            np.array([top_most, bottom_most, left_most, right_most]))
+            [top_left, bottom_right, bottom_left, top_right])
 
     return edge_points_list
 
 def get_edge_points(detections, annotated_image):
-    image = annotated_image  # TODO: check if cv2.imread() is needed
+    image = annotated_image
     sam_checkpoint = "sam_vit_h_4b8939.pth"
     model_type = "vit_h"
     sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
