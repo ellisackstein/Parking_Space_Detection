@@ -71,6 +71,6 @@ def predict(path):
     annotated_image = image.copy()
     annotated_image = BOUNDING_BOX_ANNOTATOR.annotate(annotated_image, detections)
     annotated_image = LABEL_ANNOTATOR.annotate(annotated_image, detections)
-    sv.plot_image(annotated_image, (10, 10))
+    # sv.plot_image(annotated_image, (10, 10))
 
     return detections, annotated_image

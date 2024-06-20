@@ -77,8 +77,8 @@ def moving_vs_stat(detections1, annotated_image1, detections2, annotated_image2)
                       2)  # Red for unique boxes
 
     # Display the annotated images
-    sv.plot_image(annotated_image1, (10, 10))
-    sv.plot_image(annotated_image2, (10, 10))
+    # sv.plot_image(annotated_image1, (10, 10))
+    # sv.plot_image(annotated_image2, (10, 10))
 
     return unique_to_image1, unique_to_image2
 
