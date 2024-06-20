@@ -34,16 +34,16 @@ else:
 
 smallest_car_in_scene = find_smallest_car(detections)
 
-    car_detections = extract_car_detections(detections)
+car_detections = extract_car_detections(detections)
 
-    image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-    exact_detections = get_edge_points(car_detections, image)
+image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+exact_detections = get_edge_points(car_detections, image)
 
     # displaying the points
-    for cord in exact_detections:
-        display_edge_points(image, cord)
+for cord in exact_detections:
+    display_edge_points(image, cord)
 
     #free_parking_between_cars(exact_detections, smallest_car_in_scene)
-    print(free_parking_exact_coord(exact_detections,smallest_car_in_scene))
+print(free_parking_exact_coord(exact_detections,smallest_car_in_scene))
 
 
