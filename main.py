@@ -6,8 +6,7 @@ from linearSeparator import find_linear_separator
 from segmentation import *
 from SAMworld import *  # only for testing and displaying
 
-PARKING_AREA = {1: [], 2: [], 3: []}
-SUPERVISED = False
+SUPERVISED = True
 
 # Step 1: Preprocessing video of destination
 #path1, path2 = preprocessing("Scenes\scene1")
@@ -24,17 +23,16 @@ detections, annotated_image = cancel_moving_cars(detections1, annotated_image1,
 
 # Step 4: Distinguishing the parking areas
 if SUPERVISED:
-    # TODO: Shira
-    annotated_image = parking_mark(detections, annotated_image,
-                                   PARKING_AREA[1])
+    scene_num = 1
+    parking_areas = parking_mark(scene_num)
 
 else:
-    #annotated_image = find_linear_separator(detections, annotated_image)
+    annotated_image = find_linear_separator(detections, annotated_image)
 
-    # TODO: Shira
-    # Step 5: Detecting empty parking spots
+# TODO: Shira
+# Step 5: Detecting empty parking spots
 
-    smallest_car_in_scene = find_smallest_car(detections)
+smallest_car_in_scene = find_smallest_car(detections)
 
     car_detections = extract_car_detections(detections)
 
