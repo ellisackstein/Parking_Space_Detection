@@ -87,44 +87,44 @@ def show_box(box, ax):
 
 
 ################
-SOURCE_IMAGE_PATH = "/Users/shiraadler/PycharmProjects/new/Parking_Space_Detection/test_img/20240426_122224.jpg"
-model = YOLOWorld(model_id="yolo_world/l")
-classes = ["car"]
-model.set_classes(classes)
-image = cv2.imread(SOURCE_IMAGE_PATH)
-
-results = model.infer(image)
-detections = sv.Detections.from_inference(results)
-
-car_detections = extract_car_detections(detections)
-
+# SOURCE_IMAGE_PATH = "test_img/20240426_122224.jpg"
+# model = YOLOWorld(model_id="yolo_world/l")
+# classes = ["car"]
+# model.set_classes(classes)
 # image = cv2.imread(SOURCE_IMAGE_PATH)
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-sam_checkpoint = "sam_vit_h_4b8939.pth"
-model_type = "vit_h"
-
-sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
-predictor = SamPredictor(sam)
-predictor.set_image(image)
-
-exact_coordinates = []
-
-car_detections.sort(key=lambda x: x[0])
-for box in car_detections:
-    # input_box = np.array([425, 600, 700, 875])
-    masks, _, _ = predictor.predict(
-        point_coords=None,
-        point_labels=None,
-        box=box,
-        multimask_output=False, )
-
-    mask_edge_points = get_mask_edge_points(masks)
-    exact_coordinates.append(mask_edge_points)
-    # print(mask_edge_points)
-    # plt.figure(figsize=(10, 10))
-    # plt.imshow(image)
-    #display_edge_points(image, mask_edge_points)
-    # show_mask(masks[0], plt.gca())
-    # show_box(box, plt.gca())
-    # plt.axis('off')
+#
+# results = model.infer(image)
+# detections = sv.Detections.from_inference(results)
+#
+# car_detections = extract_car_detections(detections)
+#
+# # image = cv2.imread(SOURCE_IMAGE_PATH)
+# image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+#
+# sam_checkpoint = "sam_vit_h_4b8939.pth"
+# model_type = "vit_h"
+#
+# sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
+# predictor = SamPredictor(sam)
+# predictor.set_image(image)
+#
+# exact_coordinates = []
+#
+# car_detections.sort(key=lambda x: x[0])
+# for box in car_detections:
+#     # input_box = np.array([425, 600, 700, 875])
+#     masks, _, _ = predictor.predict(
+#         point_coords=None,
+#         point_labels=None,
+#         box=box,
+#         multimask_output=False, )
+#
+#     mask_edge_points = get_mask_edge_points(masks)
+#     exact_coordinates.append(mask_edge_points)
+#     # print(mask_edge_points)
+#     # plt.figure(figsize=(10, 10))
+#     # plt.imshow(image)
+#     #display_edge_points(image, mask_edge_points)
+#     # show_mask(masks[0], plt.gca())
+#     # show_box(box, plt.gca())
+#     # plt.axis('off')

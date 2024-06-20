@@ -53,6 +53,6 @@ exact_detections = get_edge_points(car_detections, image_rgb)
     #free_parking_between_cars(exact_detections, smallest_car_in_scene)
 free_spots = free_parking_exact_coord(exact_detections,smallest_car_in_scene)
 
-display_empty_spot(free_spots)
+display_empty_spot(annotated_image, free_spots)
 
 

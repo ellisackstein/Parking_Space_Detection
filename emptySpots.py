@@ -110,7 +110,7 @@ def free_parking_exact_coord(exact_detections, min_parking_spot_width):
     """
 
     # Sort detections by the x-coordinate of the top-left corner of the bounding boxes
-    exact_detections.sort(key=lambda x: x[0][0][0])
+    exact_detections.sort(key=lambda x: x[0][0])
     free_spots = []
 
     for i in range(len(exact_detections) - 1):
@@ -168,14 +168,14 @@ def horizontal_distance_exact_coord(box1, box2):
        Returns:
            float: The horizontal distance between the centers of the two bounding boxes.
        """
-    t_r_x1 = box1[3][0]  # top-left x
-    b_r_x1 = box1[1][0]  # top-right x
+    t_r_x1 = box1[3][0]  # top-right x
+    b_r_x1 = box1[1][0]  # bottom-right x
     t_l_x2 = box2[0][0]  # top-left x of next car
-    b_l_x2 = box2[2][0]  # top-right x of next car
+    b_l_x2 = box2[2][0]  # bottom-left x of next car
 
     center1 = (t_r_x1 + b_r_x1) / 2
     center2 = (t_l_x2 + b_l_x2) / 2
-    return abs(center1 - center2)
+    return center2 - center1
 
 
 def display_empty_spot(image, points, color=(0, 0, 255)):
