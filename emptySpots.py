@@ -7,17 +7,36 @@ def calculate_horizontal_distance(box1, box2):
     """
     Calculate the horizontal distance between two bounding boxes.
     Args:
-        box1: (x_left1, y_up1, x_right1, y_down1)
-        box2: (x_left2, y_up2, x_right2, y_down2)
+        box1: (x_left1, y_down1, x_right1, y_up1)
+        box2: (x_left2, y_down2, x_right2, y_up2)
     Returns:
-        float: The horizontal distance between the centers of the two bounding boxes.
+        float: The horizontal distance between the edges of the two bounding boxes.
     """
-    xl1, _, xr1, _ = box1
-    xl2, _, xr2, _ = box2
-    center1 = (xl1 + xr1) / 2
-    center2 = (xl2 + xr2) / 2
-    return abs(center1 - center2)
+    xmin1, _, xmax1, _ = box1
+    xmin2, _, xmax2, _ = box2
+    #center1 = (xmin1 + xmax1) / 2
+    #center2 = (xmin2 + xmax2) / 2
+    # return abs(center1 - center2)
+    return (xmin2-xmax1)
 
+def edge_horizontal_distance(car,frame,side):
+    """
+    Calculate the horizontal distance between a car and the parking area
+    Args:
+        car: (x_left1, y_down1, x_right1, y_up1)
+        frame: (x_left1, y_down1, x_right1, y_up1)
+        side:   1 - car in the left of the frame,
+                0 - car in the right of the frame
+
+    Returns:
+        float: The horizontal distance
+    """
+    xmin1, _, xmax1, _ = car
+    xmin2, _, xmax2, _ = frame
+    if side:
+        return xmax2 - xmax1
+    else:
+        return xmin1 - xmin2
 
 def find_smallest_car(detections):
     # Set initial smallest width to positive infinity
@@ -86,16 +105,47 @@ def free_parking_between_cars(car_detections, min_parking_spot_width):
                     break
 
         if not overlap:
-            # Calculate the horizontal distance between the current car and the next car
+            # Calculate the horizontal distance between
+            # the current car and the next car
             distance = calculate_horizontal_distance(car_detections[i],
                                                      car_detections[i + 1])
-            if distance > min_parking_spot_width:
+            if distance >= min_parking_spot_width:
                 free_spots.append([car_detections[i][2],
-                                  max(car_detections[i][1],
+                                  min(car_detections[i][1],
                                       car_detections[j][1]),
                                   car_detections[j][0],
-                                  min(car_detections[i + 1][3],
+                                  max(car_detections[i + 1][3],
                                       car_detections[j][3])])
+                # TODO: check if the min and max are correct
+
+    return free_spots
+
+
+def free_parking_in_edge(car_detections, min_parking_spot_width,parking_area):
+    free_spots = []
+    if len(car_detections) == 0: # no cars in scene
+        return
+
+    car_detections.sort(key=lambda x: x[0])
+
+    # leftest car
+    distance1 = edge_horizontal_distance(parking_area,
+                                             car_detections[0],0)
+
+    if distance1 >= min_parking_spot_width:
+        free_spots.append([parking_area[0],
+                           car_detections[1],
+                           car_detections[0],
+                           car_detections[3]])
+
+    distance2 = edge_horizontal_distance(parking_area,
+                                        car_detections[len(car_detections)-1], 1)
+
+    if distance2 >= min_parking_spot_width:
+        free_spots.append([car_detections[2],
+                           car_detections[1],
+                           parking_area[2],
+                           car_detections[3]])
 
     return free_spots
 

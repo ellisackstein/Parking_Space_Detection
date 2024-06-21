@@ -36,29 +36,33 @@ if SUPERVISED:
 
     for parking_area in parking_areas:
         posture = parking_area[0]
-    parking_area_bbox = parking_area[1]
+        parking_area_bbox = parking_area[1]
+        detections_per_area = (detections_in_area(car_detections,
+                                                  parking_area_bbox))
 
-    detections_in_area = detection_in_area(car_detections, parking_area_bbox)
+        if posture == 'diagonal':  # TODO: Ellie to change to currect format
 
-    if posture == 'diagonal':  # TODO: Ellie to change to currect format
+            image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+            exact_detections = get_edge_points(detections_per_area, image_rgb)
 
-        image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-        exact_detections = get_edge_points(detections_in_area, image_rgb)
+            # displaying the points
+            for cord in exact_detections:
+                display_edge_points(annotated_image, cord)
 
-        # displaying the points
-        for cord in exact_detections:
-            display_edge_points(annotated_image, cord)
+            free_spots = free_parking_exact_coord(exact_detections,
+                                                  smallest_car_in_scene)
 
-            # free_parking_between_cars(exact_detections, smallest_car_in_scene)
-        free_spots = free_parking_exact_coord(exact_detections,
-                                              smallest_car_in_scene)
+            display_empty_spot(annotated_image, free_spots)
 
-        display_empty_spot(annotated_image, free_spots)
+        else:
 
-
-    else:
-        free_spots = free_parking_between_cars(car_detections,
-                                               smallest_car_in_scene)
+            free_spots = free_parking_between_cars(detections_per_area,
+                                                   smallest_car_in_scene)
+            free_spots.append(free_parking_in_edge(detections_per_area,
+                                                   smallest_car_in_scene,
+                                                   parking_area_bbox))
+            # if there arent any free spots, free_spots = [None]
+            print(free_spots)
 
         # x1,x2,y1,y2 = free_spots[0]
         # image = img.copy()
@@ -72,7 +76,3 @@ if SUPERVISED:
 
 # TODO: Shira
 # Step 5: Detecting empty parking spots
-
-
-
-

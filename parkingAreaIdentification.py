@@ -46,6 +46,16 @@ def parking_mark(scene_num):
 
     return bboxes
 
-def detection_in_area(detections, parking_area_bbox):
-    # TODO: complete
-    return 0
+
+def detections_in_area(detections, parking_area_bbox):
+    xmin_area, ymin_area, xmax_area, ymax_area = parking_area_bbox
+    detections_within_area = []
+    for detection in detections:
+        xmin_det, ymin_det, xmax_det, ymax_det = detection
+        if      xmin_area <= xmin_det and \
+                ymin_area <= ymin_det and \
+                xmax_area >= xmax_det and\
+                ymax_area >= ymax_det:
+            detections_within_area.append(detection)
+
+    return detections_within_area
