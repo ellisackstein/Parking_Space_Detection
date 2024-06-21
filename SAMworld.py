@@ -58,11 +58,10 @@ def display_edge_points(image: np.ndarray, edge_points_list: np.ndarray):
     colors = [(0, 255, 0), (0, 0, 255), (255, 0, 0), (0, 255, 255)]
     i = 0
 
-    for edge_points in edge_points_list:
-        for point in edge_points:
-            if point[0] is not None and point[1] is not None:
-                cv2.circle(image, (point[1], point[0]), 5, colors[i], -1)
-                i += 1
+    for point in edge_points_list:
+        if point[0] is not None and point[1] is not None:
+            cv2.circle(image, (point[0], point[1]), 5, colors[i], -1)
+            i += 1
 
     plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     plt.show()

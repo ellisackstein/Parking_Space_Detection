@@ -45,3 +45,7 @@ def parking_mark(scene_num):
         print(f"Scene folder {scene_folder} does not exist.")
 
     return bboxes
+
+def detection_in_area(detections, parking_area_bbox):
+    # TODO: complete
+    return 0
