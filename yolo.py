@@ -56,7 +56,6 @@ def predict_yolo_9(path):
     else:
         print("Error: Unable to read the image file.")
 
-predict_yolo_9("test_img/amen.jpg")
 
 def predict(path):
 

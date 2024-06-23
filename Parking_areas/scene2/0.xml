@@ -1,0 +1,38 @@
+<annotation>
+	<folder>parking_area</folder>
+	<filename>0.png</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Moving_car\Scene2\parking_area\0.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>vertical</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>114</xmin>
+			<ymin>225</ymin>
+			<xmax>1374</xmax>
+			<ymax>436</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>diagonal</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>160</xmin>
+			<ymin>511</ymin>
+			<xmax>1920</xmax>
+			<ymax>1080</ymax>
+		</bndbox>
+	</object>
+</annotation>

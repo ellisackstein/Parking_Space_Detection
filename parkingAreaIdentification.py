@@ -4,13 +4,13 @@ import xml.etree.ElementTree as ET
 
 def parking_mark(scene_num):
     # Define the path to the "Scenes" directory
-    base_dir = "Scenes"
+    base_dir = "Parking_areas"
 
     # Construct the folder name based on the scene number
     scene_folder = f"scene{scene_num}"
 
     # Full path to the scene folder
-    scene_path = os.path.join(base_dir, scene_folder, "parking_area")
+    scene_path = os.path.join(base_dir, scene_folder)
 
     # Initialize the list to hold bounding box coordinates
     bboxes = []
@@ -50,11 +50,11 @@ def parking_mark(scene_num):
 def detections_in_area(detections, parking_area_bbox):
     xmin_area, ymin_area, xmax_area, ymax_area = parking_area_bbox
     detections_within_area = []
-    for detection in detections:
+    for detection in detections.xyxy:
         xmin_det, ymin_det, xmax_det, ymax_det = detection
-        if      xmin_area <= xmin_det and \
+        if xmin_area<= xmin_det and \
                 ymin_area <= ymin_det and \
-                xmax_area >= xmax_det and\
+                xmax_area >=xmax_det and \
                 ymax_area >= ymax_det:
             detections_within_area.append(detection)
 
