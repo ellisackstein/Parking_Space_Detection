@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import os
 from yolo import predict
 from movingVSstat import moving_vs_stat
+import supervision as sv
 
 def parse_bounding_boxes(xml_file):
     """

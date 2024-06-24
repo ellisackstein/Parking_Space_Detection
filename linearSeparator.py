@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import supervision as sv
 
 
 def find_linear_separator(detections, annotated_image):

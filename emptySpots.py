@@ -1,6 +1,9 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+from supervision.detection.core import Detections
+import supervision as sv
+from typing import List
 
 
 def calculate_horizontal_distance(box1, box2):
@@ -14,10 +17,11 @@ def calculate_horizontal_distance(box1, box2):
     """
     xmin1, _, xmax1, _ = box1
     xmin2, _, xmax2, _ = box2
-    #center1 = (xmin1 + xmax1) / 2
-    #center2 = (xmin2 + xmax2) / 2
+    # center1 = (xmin1 + xmax1) / 2
+    # center2 = (xmin2 + xmax2) / 2
     # return abs(center1 - center2)
-    return (xmin2-xmax1)
+    return (xmin2 - xmax1)
+
 
 def edge_horizontal_distance(frame, car, side):
     """
@@ -53,7 +57,7 @@ def find_smallest_car(detections):
     return smallest_width
 
 
-def free_parking_between_cars(car_detections, min_parking_spot_width):
+def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width):
     """
     Identify free parking spots based on the distance between car detections,
     ensuring no other car overlaps the free spot.
@@ -61,7 +65,6 @@ def free_parking_between_cars(car_detections, min_parking_spot_width):
 
     # Sort detections by the x-coordinate of the bounding boxes
     car_detections.sort(key=lambda x: x[0])
-    free_spots = []
 
     for i in range(len(car_detections) - 1):
         # Define the potential free spot area
@@ -83,8 +86,7 @@ def free_parking_between_cars(car_detections, min_parking_spot_width):
                 car_x2 = car_detections[j][2]
                 car_y2 = car_detections[j][3]
 
-                if not (
-                        car_x2 <= x1 or car_x1 >= x2 or car_y2 <= y1 or car_y1 >= y2):
+                if not (car_x2 <= x1 or car_x1 >= x2 or car_y2 <= y1 or car_y1 >= y2):
                     overlap = True
                     break
 
@@ -95,35 +97,32 @@ def free_parking_between_cars(car_detections, min_parking_spot_width):
                                                      car_detections[i + 1])
             if distance >= min_parking_spot_width:
                 free_spots.append([car_detections[i][2],
-                                  min(car_detections[i][1],
-                                      car_detections[j][1]),
-                                  car_detections[j][0],
-                                  max(car_detections[i + 1][3],
-                                      car_detections[j][3])])
+                                   min(car_detections[i][1],
+                                       car_detections[j][1]),
+                                   car_detections[j][0],
+                                   max(car_detections[i + 1][3],
+                                       car_detections[j][3])])
                 # TODO: check if the min and max are correct
 
     return free_spots
 
 
-def free_parking_in_edge(car_detections, min_parking_spot_width,parking_area):
-    free_spots = []
-    if len(car_detections) == 0: # no cars in scene
-        return parking_area
+def free_parking_in_edge(free_spots, car_detections, min_parking_spot_width, parking_area):
 
     car_detections.sort(key=lambda x: x[0])
 
     # most left car
     left_car = car_detections[0]
-    distance1 = edge_horizontal_distance(parking_area,left_car,1)
+    distance1 = edge_horizontal_distance(parking_area, left_car, 1)
 
     if distance1 >= min_parking_spot_width:
         free_spots.append([parking_area[0],
-                               left_car[1],
-                               left_car[0],
-                               left_car[3]])
+                           left_car[1],
+                           left_car[0],
+                           left_car[3]])
 
-    right_car = car_detections[len(car_detections)-1]
-    distance2 = edge_horizontal_distance(parking_area,right_car, 0)
+    right_car = car_detections[len(car_detections) - 1]
+    distance2 = edge_horizontal_distance(parking_area, right_car, 0)
 
     if distance2 >= min_parking_spot_width:
         free_spots.append([right_car[2],
@@ -236,3 +235,71 @@ display_empty_spot
     plt.imshow(cv2.cvtColor(img_copy, cv2.COLOR_BGR2RGB))
     plt.axis('off')
     plt.show()
+
+
+def detections_in_area(detections, parking_area_bbox):
+    xmin_area, ymin_area, xmax_area, ymax_area = parking_area_bbox
+    detections_within_area = []
+    for detection in detections.xyxy:
+        xmin_det, ymin_det, xmax_det, ymax_det = detection
+        if xmin_area <= xmin_det and \
+                ymin_area <= ymin_det and \
+                xmax_area >= xmax_det and \
+                ymax_area >= ymax_det:
+            detections_within_area.append(detection)
+
+    return detections_within_area
+
+
+def present_results(arr, test_path):
+    image = cv2.imread(test_path)
+    for cord in arr:
+        rectangle_coords = cord
+
+        # Draw the rectangle on the image
+        color = (0, 255, 0)
+        thickness = 2
+        cv2.rectangle(image, (int(rectangle_coords[0]), int(rectangle_coords[1])),
+                      (int(rectangle_coords[2]), int(rectangle_coords[3])), color, thickness)
+
+    # Display the image with the rectangle
+    cv2.imshow("Image with Rectangle", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+def find_empty_spots(annotated_image, detections, parking_areas) -> List[List[float]]:
+    reference_car = find_smallest_car(detections)
+    free_spots = []
+    for parking_area in parking_areas:
+        posture, parking_area_bbox = parking_area
+
+        detections_per_area = detections_in_area(detections, parking_area_bbox)
+        ##########################################################
+        # detections_per_area_ = Detections(xyxy=np.array(detections_per_area).reshape(len(detections_per_area), 4),
+        #                                   class_id=np.array([1 for _ in range(len(detections_per_area))]))
+        # BOUNDING_BOX_ANNOTATOR = sv.BoundingBoxAnnotator(thickness=2)
+        # LABEL_ANNOTATOR = sv.LabelAnnotator(text_thickness=2, text_scale=1, text_color=sv.Color.BLACK)
+        # annotated_image = annotated_image.copy()
+        # annotated_image = LABEL_ANNOTATOR.annotate(annotated_image, detections_per_area_)
+        # sv.plot_image(annotated_image, (10, 10))
+        ##########################################################
+
+        if posture == 'diagonal':
+            # image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+            # exact_detections = get_edge_points(detections_per_area, image_rgb)
+            # # displaying the points
+            # for cord in exact_detections:
+            #     display_edge_points(annotated_image, cord)
+            # free_spots = free_parking_exact_coord(exact_detections, reference_car)
+            # display_empty_spot(annotated_image, free_spots)
+            continue
+        else:
+            if len(detections_per_area) == 0:  # no cars in scene
+                return [parking_area_bbox]
+
+            free_parking_between_cars(free_spots, detections_per_area, reference_car)
+            free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)
+            # print(free_spots)
+
+        return free_spots

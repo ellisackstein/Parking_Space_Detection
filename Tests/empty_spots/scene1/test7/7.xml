@@ -1,7 +1,7 @@
 <annotation>
-	<folder>test7</folder>
-	<filename>7.png</filename>
-	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\scene1\test7\7.png</path>
+	<folder>parking_area</folder>
+	<filename>0.png</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Scene1\parking_area\0.png</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -12,15 +12,15 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>empty</name>
+		<name>orthogonal</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>462</xmin>
-			<ymin>527</ymin>
-			<xmax>1281</xmax>
-			<ymax>690</ymax>
+			<xmin>437</xmin>
+			<ymin>488</ymin>
+			<xmax>1305</xmax>
+			<ymax>719</ymax>
 		</bndbox>
 	</object>
 </annotation>
