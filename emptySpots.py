@@ -262,13 +262,15 @@ def present_results(arr, test_path):
         cv2.rectangle(image, (int(rectangle_coords[0]), int(rectangle_coords[1])),
                       (int(rectangle_coords[2]), int(rectangle_coords[3])), color, thickness)
 
+    cv2.namedWindow("Image with Rectangle", cv2.WINDOW_NORMAL)
+
     # Display the image with the rectangle
     cv2.imshow("Image with Rectangle", image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 
-def find_empty_spots(annotated_image, detections, parking_areas) -> List[List[float]]:
+def find_empty_spots(png_file, detections, parking_areas) -> List[List[float]]:
     reference_car = find_smallest_car(detections)
     free_spots = []
     for parking_area in parking_areas:

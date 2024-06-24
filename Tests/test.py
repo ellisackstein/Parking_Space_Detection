@@ -190,7 +190,7 @@ class Tests(unittest.TestCase):
 
                 # list the empty parking spots from our algorithm
                 parking_areas = parking_mark(int(scene_path[-1]), self.parking_area_path)
-                test_boxes = find_empty_spots(annotated_image, detections, parking_areas)
+                test_boxes = find_empty_spots(png_file, detections, parking_areas)
 
             # self.assertEqual(len(reference_boxes), len(test_boxes))
 

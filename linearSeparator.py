@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import supervision as sv
 
 
 def find_linear_separator(detections, annotated_image):
@@ -32,6 +33,6 @@ def find_linear_separator(detections, annotated_image):
     part2 = [0, image_width, 0, line_y]
 
     # Optionally display the annotated image with the separator
-    # sv.plot_image(annotated_image, (10, 10)) # Uncomment to display the image
+    sv.plot_image(annotated_image, (10, 10)) # Uncomment to display the image
 
     return [("unknown", [part1]), ("unknown",[part2])]
