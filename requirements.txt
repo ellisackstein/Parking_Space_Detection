@@ -1,0 +1,11 @@
+# requirements
+# Usage: pip install -r requirements.txt
+
+cv2
+os
+matplotlib>=3.2.2
+typing
+xml
+numpy>=1.18.5
+ultralytics
+supervision
