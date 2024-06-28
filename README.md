@@ -57,12 +57,31 @@ End with an example of getting some data out of the system or using it
 for a little demo
 
 ## 🧪 Testing
-Explain how to run tests for this project
+We tested our two approaches : Configured and Non-configured.
+
+#### **Free parking spots detection:** 
+In these tests, we marked the free parking spots and compared those markings 
+to the output of our algorithm, which is a list of bounding boxes identifying
+the free parking spots detected in the image. These tests were executed on both
+Configured and Non-configured approaches.
+
+#### **Moving cars detection:**
+In addition to the tests above, we evaluated our ability to detect moving cars
+in a set of images. 
+Similar to the previous tests, we marked the moving cars in each picture 
+and compared these markings to the output of our moving cars detection
+algorithm, which is a bounding box identifying the moving car in the image.
+These tests were executed only on the Non-configured approach.
 
 ### Sample Tests
-Explain what these tests test and why
+Run the [Free parking spots](Tests/FreeParkingSpotsTests.py) tests
 
-    Give an example
+    Python FreeParkingSpotsTests.py
+
+You will get the results:
+
+    !!!!!!!!!!!! ADD !!!!!!!!!!!!
+
 
 ## 🚀 Deployment
 Add additional notes on how to deploy this on a live system
