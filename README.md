@@ -2,7 +2,7 @@
 Use this template to describe and document your engineering project.
 
 <!-- cool project cover image -->
-![Project Cover Image](/media/project-cover-img.jpg)
+![Project Cover Image](logo.png)
 
 <!-- table of content -->
 ## Table of Contents
