@@ -43,18 +43,21 @@ def edge_horizontal_distance(frame, car, side):
         return xmax2 - xmax1
 
 
-def find_smallest_car(detections):
-    # Set initial smallest width to positive infinity
-    smallest_width = float('inf')
+def find_average_car(detections):
+    # Convert detections to a NumPy array for efficient operations
+    boxes = np.array(detections)
 
-    boxes = detections.xyxy
-    for box in boxes:
-        xl, _, xr, _ = box
-        width = abs(xr - xl)
-        if width < smallest_width:
-            smallest_width = width
+    # Extract the x-coordinates of the left and right sides
+    xl = boxes[:, 0]
+    xr = boxes[:, 2]
 
-    return smallest_width
+    # Compute widths
+    widths = np.abs(xr - xl)
+
+    # Calculate the average width
+    average_width = np.mean(widths)
+
+    return average_width
 
 
 def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width):
@@ -271,12 +274,11 @@ def present_results(arr, test_path):
 
 
 def find_empty_spots(png_file, detections, parking_areas) -> List[List[float]]:
-    reference_car = find_smallest_car(detections)
     free_spots = []
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
-
         detections_per_area = detections_in_area(detections, parking_area_bbox)
+        reference_car = find_average_car(detections_per_area)
         ##########################################################
         # detections_per_area_ = Detections(xyxy=np.array(detections_per_area).reshape(len(detections_per_area), 4),
         #                                   class_id=np.array([1 for _ in range(len(detections_per_area))]))

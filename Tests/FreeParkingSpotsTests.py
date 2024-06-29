@@ -89,12 +89,12 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
-    # def test_scene2_test5(self):
-    #     scene_path = os.path.join(self.base_dir, "scene2")
-    #     test_path = os.path.join(scene_path, "test5")
-    #     ious = self.internal_test_code(scene_path, test_path)
-    #     for iou in ious:
-    #         self.assertTrue(iou)
+    def test_scene2_test5(self):
+        scene_path = os.path.join(self.base_dir, "scene2")
+        test_path = os.path.join(scene_path, "test5")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
 
     def test_scene2_test6(self):
         scene_path = os.path.join(self.base_dir, "scene2")
@@ -103,19 +103,62 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
-    # def test_scene2_test7(self):
-    #     scene_path = os.path.join(self.base_dir, "scene2")
-    #     test_path = os.path.join(scene_path, "test7")
-    #     ious = self.internal_test_code(scene_path, test_path)
-    #     for iou in ious:
-    #         self.assertTrue(iou)
-    #
-    # def test_scene2_test8(self):
-    #     scene_path = os.path.join(self.base_dir, "scene2")
-    #     test_path = os.path.join(scene_path, "test8")
-    #     ious = self.internal_test_code(scene_path, test_path)
-    #     for iou in ious:
-    #         self.assertTrue(iou)
+    def test_scene2_test7(self):
+        scene_path = os.path.join(self.base_dir, "scene2")
+        test_path = os.path.join(scene_path, "test7")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene2_test8(self):
+        scene_path = os.path.join(self.base_dir, "scene2")
+        test_path = os.path.join(scene_path, "test8")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    # Scene 3
+    def test_scene3_test1(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test1")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test2")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test3(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test3")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test4(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test4")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test5(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test5")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test6(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test6")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
 
     def calculate_iou(self, box1, box2):
         """
