@@ -26,11 +26,15 @@ Use this template to describe and document your engineering project.
 
 
 ## 📚 Project Description
-- A brief description of the project/challange, what it does, and how it works.
-- A list of the main features and functionalities of the project.
-- A list of the main components of the project.
-- A list of the main technologies used in the project.
+Our project aims to develop an advanced application for detecting available
+parking spots using live street video feeds, using pre-installed cameras.
+ The application utilizes YOLO for car detection within the camera frames and
+employs our proprietary algorithms to identify and extract vacant parking spots.
 
+The output includes a photo of the street with clearly marked free parking 
+spaces. Additionally, users receive a map with the location of available spots
+marked, and they can utilize integrated Google Maps API features to obtain 
+directions to these spots.
 
 ## ⚡ Getting Started
 
@@ -38,9 +42,12 @@ These instructions will give you a copy of the project up and running on
 your local machine for development and testing purposes. 
 
 ### 🧱 Prerequisites
-Requirements for the software and other tools to build, test and push 
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
+
+Install requirements from requirements.txt:
+
+   ```bash
+    pip install -r requirements.txt
+   ```
 
 ### 🏗️ Installing
 A step by step series of examples that tell you how to get a development environment running
@@ -93,6 +100,6 @@ Add additional notes on how to deploy this on a live system
 
 
 ## 🙏 Acknowledgments
-  - Hat tip to anyone whose code is used
+  - [Yolov9 repository](https://github.com/WongKinYiu/yolov9/tree/main?tab=readme-ov-file#evaluation)
   - Inspiration
   - etc
