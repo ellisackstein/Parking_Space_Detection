@@ -1,5 +1,7 @@
 from segment_anything import SamPredictor, sam_model_registry
 import numpy as np
+from yolo import *
+from SAMworld import *
 
 def get_mask_edge_points(mask):
     """
@@ -18,18 +20,21 @@ def get_mask_edge_points(mask):
       of the four edge points of a mask.
     """
     # Find the coordinates where the mask is non-zero
+    #coords = np.column_stack(np.where(mask == 1))
 
-    coords = np.column_stack(np.where(mask == 1))
+    # YOLOV9 - already in array
+    coords = mask
+
     if coords.size == 0:
         # If no mask is found, return None for that mask
         return np.array([[None, None], [None, None], [None, None], [None, None]])
     else:
         # Get the edge points
-        top_left = coords[np.argmin(coords[:, 0])]
-        bottom_right = coords[np.argmax(coords[:, 0])]
-        bottom_left = coords[np.argmin(coords[:, 1])]
-        top_right = coords[np.argmax(coords[:, 1])]
-        return np.array([top_left, bottom_right, bottom_left, top_right])
+        x_min = coords[np.argmin(coords[:, 0])]
+        x_max = coords[np.argmax(coords[:, 0])]
+        y_min = coords[np.argmin(coords[:, 1])]
+        y_max = coords[np.argmax(coords[:, 1])]
+        return np.array([x_min, y_min, x_max, y_max])
 
 def get_edge_points(detections, annotated_image):
     image = annotated_image
@@ -53,3 +58,28 @@ def get_edge_points(detections, annotated_image):
         edge_points.append(mask_edge_points)
 
     return edge_points
+
+##################### TESTING #####################
+
+# img_path = "test_img/20240426_111900.jpg"
+#
+# car_boxes, car_masks = predict_yolo_9(img_path)
+# image = cv2.imread(img_path)
+#
+# exact_coordinates = []
+# for mask in car_masks:
+#     mask_edge_points = get_mask_edge_points(mask)
+#     exact_coordinates.append(mask_edge_points)
+#     print(mask_edge_points)
+#     plt.figure(figsize=(10, 10))
+#     plt.imshow(image)
+#     display_edge_points(image, mask_edge_points)
+#     show_mask(mask, plt.gca())
+#     plt.axis('off')
+#
+# free_spots = []
+# reference_car = find_average_car(exact_coordinates)
+# free_spots = free_parking_exact_coord(free_spots,exact_coordinates,300)
+# present_results(free_spots,img_path)
+
+###################################################

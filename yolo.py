@@ -22,7 +22,7 @@ def predict_yolo_9(path):
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Run YOLOv8 inference on the image
-        results = model(image_rgb)
+        results = model.predict(image_rgb)
 
         # Define car class id (assuming 'car' class id is known, e.g., 2)
         car_class_name = 'car'
@@ -37,7 +37,9 @@ def predict_yolo_9(path):
         for mask, box in zip(results[0].masks.xy, results[0].boxes):
             if int(box.cls[0]) == car_class_id and box.conf[0] > 0.5:
                 car_masks.append(mask)
-                car_boxes.append(box)
+                x1, y1, x2, y2 = box.xyxy[0].tolist()  # Convert tensor to list
+                car_boxes.append((x1, y1, x2, y2))
+
 
         # Plot filtered results on the image
         annotated_image = image_rgb.copy()
@@ -55,6 +57,8 @@ def predict_yolo_9(path):
 
     else:
         print("Error: Unable to read the image file.")
+
+    return car_boxes,car_masks,image
 
 
 def predict(path):

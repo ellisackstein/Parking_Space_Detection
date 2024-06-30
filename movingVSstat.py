@@ -83,7 +83,7 @@ def moving_vs_stat(detections1, annotated_image1, detections2, annotated_image2)
     return unique_to_image1, unique_to_image2
 
 
-def cancel_moving_cars(detections1, annotated_image1, detections2, annotated_image2):
+def cancel_moving_cars(detections1, masks1, annotated_image1, detections2,masks2, annotated_image2):
     """
     Determine which set of unique detections has fewer items and return the original detections and annotated image
     corresponding to that set.
@@ -103,10 +103,10 @@ def cancel_moving_cars(detections1, annotated_image1, detections2, annotated_ima
     unique_to_image1, unique_to_image2 = moving_vs_stat(detections1, annotated_image1, detections2, annotated_image2)
     if len(unique_to_image1) <= len(unique_to_image2):
         print("frame 1!")
-        return detections1, annotated_image1
+        return detections1, masks1,annotated_image1
     else:
         print("frame 2!")
-        return detections2, annotated_image2
+        return detections2, masks2,annotated_image2
 
 # import os
 # import cv2

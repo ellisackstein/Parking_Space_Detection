@@ -1,7 +1,7 @@
 # test_path = "Tests/empty_spots/scene2/test1/1.png"
 from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
-from yolo import predict
+from yolo import *
 from parkingAreaIdentification import *
 from linearSeparator import find_linear_separator
 from SAMworld import *  # only for testing and displaying
@@ -12,12 +12,19 @@ SUPERVISED = True
 path1, path2 = preprocessing("Scenes\scene1")
 
 # step 2: Get predictions
-detections1, annotated_image1 = predict(path1)
-detections2, annotated_image2 = predict(path2)
+
+############ YOLO WORLD ############
+# detections1, annotated_image1 = predict(path1)
+# detections2, annotated_image2 = predict(path2)
+####################################
+
+detections1, masks1, annotated_image1 = predict_yolo_9(path1)
+detections2,masks2, annotated_image2 = predict_yolo_9(path2)
 
 # Step 3: Cancelling moving cars
-detections, annotated_image = cancel_moving_cars(detections1, annotated_image1,
-                                                 detections2, annotated_image2)
+detections,masks, annotated_image = cancel_moving_cars(detections1,masks1, annotated_image1,
+                                                 detections2, masks2, annotated_image2)
+
 
 # Step 4: Distinguishing the parking areas
 if SUPERVISED:
@@ -28,5 +35,10 @@ else:  # if not supervised, find a linear separator
     parking_areas = find_linear_separator(detections, annotated_image)
 
 # Step 5: Detecting empty parking spots
-free_spots = find_empty_spots(annotated_image, detections, parking_areas)
+if len(detections) == 0:
+    # if there are no cars, the entire area is free
+    free_spots = parking_areas
+else:
+    free_spots = find_empty_spots(annotated_image, detections,masks, parking_areas)
+
 present_results(free_spots, path1)
