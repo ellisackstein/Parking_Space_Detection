@@ -231,24 +231,18 @@ display_empty_spot
     plt.show()
 
 
-def detections_in_area(detections,masks, parking_area_bbox):
+def detections_in_area(detections, parking_area_bbox):
     xmin_area, ymin_area, xmax_area, ymax_area = parking_area_bbox
     detections_within_area = []
-    masks_within_area = []
-    i=0
-    for detection in detections.xyxy:
+    for detection in detections: # detections.xyxy in YOLO WORLD
         xmin_det, ymin_det, xmax_det, ymax_det = detection
         if xmin_area <= xmin_det and \
                 ymin_area <= ymin_det and \
                 xmax_area >= xmax_det and \
                 ymax_area >= ymax_det:
             detections_within_area.append(detection)
-            masks_within_area.append(masks[i])
-        i+=1
-
 
     return detections_within_area
-
 
 def present_results(arr, test_path):
     image = cv2.imread(test_path)
@@ -277,7 +271,10 @@ def find_empty_spots(image, detections,masks, parking_areas) -> List[List[float]
     free_spots = []
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
-        detections_per_area, masks_per_area = detections_in_area(detections, masks,parking_area_bbox)
+        detections_per_area = detections_in_area(detections,parking_area_bbox)
+        if len(detections_per_area) == 0:  # no cars in scene
+            return [parking_area_bbox]
+
         reference_car = find_average_car(detections_per_area)
         ##########################################################
         # detections_per_area_ = Detections(xyxy=np.array(detections_per_area).reshape(len(detections_per_area), 4),
@@ -288,7 +285,6 @@ def find_empty_spots(image, detections,masks, parking_areas) -> List[List[float]
         # annotated_image = LABEL_ANNOTATOR.annotate(annotated_image, detections_per_area_)
         # sv.plot_image(annotated_image, (10, 10))
         ##########################################################
-
         if posture == 'diagonal':
             # image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
             # exact_detections = get_edge_points(detections_per_area, image_rgb)
@@ -298,17 +294,14 @@ def find_empty_spots(image, detections,masks, parking_areas) -> List[List[float]
             # free_spots = free_parking_exact_coord(exact_detections, reference_car)
             # display_empty_spot(annotated_image, free_spots)
             exact_coordinates = []
-            for mask in masks_per_area:
+            for mask in masks:
                 mask_edge_points = get_mask_edge_points(mask)
                 exact_coordinates.append(mask_edge_points)
-            detections_per_area = exact_coordinates
+            detections_per_area = detections_in_area(exact_coordinates,parking_area_bbox)
             reference_car = find_average_car(detections_per_area)
             free_parking_exact_coord(free_spots,detections_per_area,reference_car)
 
         else:
-            if len(detections_per_area) == 0:  # no cars in scene
-                return [parking_area_bbox]
-
             free_parking_between_cars(free_spots, detections_per_area, reference_car)
 
         free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)

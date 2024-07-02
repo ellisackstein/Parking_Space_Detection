@@ -42,18 +42,18 @@ def predict_yolo_9(path):
 
 
         # Plot filtered results on the image
-        annotated_image = image_rgb.copy()
-        for mask in car_masks:
-            points = np.array(mask, dtype=np.int32)
-            cv2.polylines(annotated_image, [points], isClosed=True,
-                          color=(255, 0, 0), thickness=2)
-
-        # Display the annotated image
-        plt.figure(figsize=(12, 8))
-        plt.imshow(annotated_image)
-        plt.axis('off')
-        plt.title("YOLOv9 Car Segmentation with Confidence > 0.5")
-        plt.show()
+        # annotated_image = image_rgb.copy()
+        # for mask in car_masks:
+        #     points = np.array(mask, dtype=np.int32)
+        #     cv2.polylines(annotated_image, [points], isClosed=True,
+        #                   color=(255, 0, 0), thickness=2)
+        #
+        # # Display the annotated image
+        # plt.figure(figsize=(12, 8))
+        # plt.imshow(annotated_image)
+        # plt.axis('off')
+        # plt.title("YOLOv9 Car Segmentation with Confidence > 0.5")
+        # plt.show()
 
     else:
         print("Error: Unable to read the image file.")
