@@ -4,7 +4,7 @@ import supervision as sv
 import unittest
 import os
 import xml.etree.ElementTree as ET
-from yolo import predict, predict_yolo_9
+from yolo import predict_yolo_world, predict_yolo_9
 from parkingAreaIdentification import parking_mark
 from emptySpots import find_empty_spots
 
@@ -70,6 +70,126 @@ class Tests(unittest.TestCase):
     def test_scene1_test_10(self):
         scene_path = os.path.join(self.base_dir, "scene1")
         test_path = os.path.join(scene_path, "test6")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test11(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test11")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test12(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test12")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test13(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test13")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test14(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test14")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test15(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test15")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test16(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test16")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test17(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test17")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test18(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test18")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test19(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test19")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test20(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test20")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test21(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test21")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test22(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test22")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test23(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test23")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test24(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test24")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test25(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test25")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test26(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test26")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test27(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test27")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test28(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test28")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test29(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test29")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene1_test30(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test30")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 

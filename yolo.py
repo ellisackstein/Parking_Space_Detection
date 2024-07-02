@@ -14,7 +14,7 @@ def predict_yolo_9(path):
     model = YOLO('yolov9e-seg.pt')
 
     # Open the image file
-    image_path = "test_img/Screenshot 2024-06-03 122621.png"  # Update with your image path
+    image_path = "bin/test_img/Screenshot 2024-06-03 122621.png"  # Update with your image path
     image = cv2.imread(path)
 
     if image is not None:
@@ -61,7 +61,7 @@ def predict_yolo_9(path):
     return car_boxes,car_masks,image
 
 
-def predict(path):
+def predict_yolo_world(path):
 
     model = YOLOWorld(model_id="yolo_world/l")
     classes = ["car"]
