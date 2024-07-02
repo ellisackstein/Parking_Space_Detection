@@ -42,8 +42,8 @@ def compare_detections(detections1, detections2, iou_threshold=0.70):
         unique_to_image1: List of detections unique to image 1.
         unique_to_image2: List of detections unique to image 2.
     """
-    boxes1 = detections1.xyxy
-    boxes2 = detections2.xyxy
+    boxes1 = detections1
+    boxes2 = detections2
 
     unique_to_image1 = []
     unique_to_image2 = boxes2.copy()
