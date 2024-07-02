@@ -5,6 +5,7 @@ from yolo import *
 from parkingAreaIdentification import *
 from linearSeparator import find_linear_separator
 from SAMworld import *  # only for testing and displaying
+from emptySpots import *
 
 SUPERVISED = True
 
@@ -35,10 +36,8 @@ else:  # if not supervised, find a linear separator
     parking_areas = find_linear_separator(detections, annotated_image)
 
 # Step 5: Detecting empty parking spots
-if len(detections) == 0:
-    # if there are no cars, the entire area is free
-    free_spots = parking_areas
-else:
-    free_spots = find_empty_spots(annotated_image, detections,masks, parking_areas)
+
+
+free_spots = find_empty_spots(annotated_image, detections,masks, parking_areas)
 
 present_results(free_spots, path1)
