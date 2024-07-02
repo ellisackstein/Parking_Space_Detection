@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from supervision.detection.core import Detections
 import supervision as sv
 from typing import List
-
 import segmentation
 from segmentation import *
 
@@ -271,6 +270,10 @@ def present_results(arr, test_path):
 
 
 def find_empty_spots(image, detections,masks, parking_areas) -> List[List[float]]:
+    if len(detections) == 0:
+        # if there are no cars, the entire area is free
+        return parking_areas
+
     free_spots = []
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
