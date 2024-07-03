@@ -7,7 +7,7 @@ def find_linear_separator(detections, annotated_image):
 
     # Extract the center points of the detections
     centers = []
-    for bbox in detections.xyxy:
+    for bbox in detections:
         x1, y1, x2, y2 = bbox
         center_x = (x1 + x2) / 2
         center_y = (y1 + y2) / 2

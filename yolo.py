@@ -9,7 +9,7 @@ import supervision as sv
 from inference.models.yolo_world.yolo_world import YOLOWorld
 
 
-def predict_yolo_9(path):
+def predict(path):
     # Load a pretrained YOLOv8 segmentation model
     model = YOLO('yolov9e-seg.pt')
 
@@ -41,7 +41,7 @@ def predict_yolo_9(path):
                 car_boxes.append((x1, y1, x2, y2))
 
 
-        # Plot filtered results on the image
+        # #Plot filtered results on the image
         # annotated_image = image_rgb.copy()
         # for mask in car_masks:
         #     points = np.array(mask, dtype=np.int32)
@@ -54,6 +54,30 @@ def predict_yolo_9(path):
         # plt.axis('off')
         # plt.title("YOLOv9 Car Segmentation with Confidence > 0.5")
         # plt.show()
+        # Draw bounding boxes and masks on the image
+        # for box in car_boxes:
+        #     x1, y1, x2, y2 = map(int, box)
+        #     cv2.rectangle(image_rgb, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Green box with thickness 2
+        #
+        # for mask in car_masks:
+        #     mask = np.array(mask, dtype=np.int32)
+        #     cv2.polylines(image_rgb, [mask], isClosed=True, color=(255, 0, 0), thickness=2)  # Blue line
+        #     cv2.fillPoly(image_rgb, [mask], color=(255, 0, 0, 50))  # Semi-transparent blue mask
+        #
+        # # Resize the image to fit within the max dimensions
+        # height, width = image_rgb.shape[:2]
+        # scaling_factor = min(800 / width, 600 / height, 1)
+        # new_width = int(width * scaling_factor)
+        # new_height = int(height * scaling_factor)
+        # resized_image = cv2.resize(image_rgb, (new_width, new_height), interpolation=cv2.INTER_AREA)
+        #
+        # # Display the resized image with bounding boxes and masks using plt
+        # plt.figure(figsize=(10, 6))  # Set figure size to accommodate larger images
+        # plt.imshow(resized_image)
+        # plt.axis('off')  # Hide axis
+        # plt.title('Detected Cars')
+        # plt.show()
+
 
     else:
         print("Error: Unable to read the image file.")

@@ -13,18 +13,14 @@ CONFIGURED = True
 path1, path2 = preprocessing("Scenes\scene1")
 
 # step 2: Get predictions
+# detections1, masks1, annotated_image1 = predict(path1)
+# detections2, masks2, annotated_image2 = predict(path2)
 
-############ YOLO WORLD ############
-# detections1, annotated_image1 = predict(path1)
-# detections2, annotated_image2 = predict(path2)
-####################################
-
-detections1, masks1, annotated_image1 = predict_yolo_9(path1)
-detections2, masks2, annotated_image2 = predict_yolo_9(path2)
+detections, masks, annotated_image = predict(path2)
 
 # Step 3: Cancelling moving cars
-detections, masks, annotated_image = cancel_moving_cars(detections1, masks1, annotated_image1,
-                                                        detections2, masks2, annotated_image2)
+# detections, masks, annotated_image = cancel_moving_cars(detections1, masks1, annotated_image1,
+#                                                         detections2, masks2, annotated_image2)
 
 # Step 4: Distinguishing the parking areas
 if CONFIGURED:

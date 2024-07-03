@@ -2,7 +2,7 @@ import unittest
 import os
 import xml.etree.ElementTree as ET
 from yolo import *
-from parkingAreaIdentification import parking_mark
+from linearSeparator import find_linear_separator
 from emptySpots import find_empty_spots
 
 
@@ -223,7 +223,7 @@ class Tests(unittest.TestCase):
 
             # Process PNG files
             if png_file:
-                detections, masks, annotated_image = predict_yolo_9(png_file)
+                detections, masks, annotated_image = predict(png_file)
 
             # Process XML file
             reference_boxes, test_boxes = [], []
@@ -232,7 +232,7 @@ class Tests(unittest.TestCase):
                 reference_boxes = self.parse_bounding_boxes(xml_file)
 
                 # list the empty parking spots from our algorithm
-                parking_areas = parking_mark(int(scene_path[-1]), self.parking_area_path)
+                parking_areas = find_linear_separator(detections, annotated_image)
                 test_boxes = find_empty_spots(png_file, detections, [], parking_areas)
 
             # self.assertEqual(len(reference_boxes), len(test_boxes))

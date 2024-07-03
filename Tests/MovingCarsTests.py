@@ -4,7 +4,7 @@ import supervision as sv
 import unittest
 import os
 import xml.etree.ElementTree as ET
-from yolo import predict_yolo_world, predict_yolo_9
+from yolo import predict_yolo_world, predict
 from parkingAreaIdentification import parking_mark
 from emptySpots import find_empty_spots
 
@@ -435,7 +435,7 @@ class Tests(unittest.TestCase):
 
             # Process PNG files
             for i, png_file in enumerate(sorted(png_files)):
-                detections[i], masks[i], annotated_images[i] = predict_yolo_9(png_file)
+                detections[i], masks[i], annotated_images[i] = predict(png_file)
 
             # Process XML file
             iou_value = 0

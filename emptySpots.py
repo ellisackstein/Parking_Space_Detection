@@ -263,47 +263,33 @@ def present_results(arr, test_path):
     cv2.destroyAllWindows()
 
 
-def find_empty_spots(image, detections,masks, parking_areas) -> List[List[float]]:
+def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float]]:
     if len(detections) == 0:
         # if there are no cars, the entire area is free
-        return parking_areas
+        return [parking_areas]
 
     free_spots = []
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
-        detections_per_area = detections_in_area(detections,parking_area_bbox)
-        if len(detections_per_area) == 0:  # no cars in scene
-            return [parking_area_bbox]
-
+        detections_per_area = detections_in_area(detections, parking_area_bbox)
+        # This is different from the previous condition because it looks in each area
+        if len(detections_per_area) == 0:
+            free_spots.append(parking_area_bbox)
+            continue
         reference_car = find_average_car(detections_per_area)
-        ##########################################################
-        # detections_per_area_ = Detections(xyxy=np.array(detections_per_area).reshape(len(detections_per_area), 4),
-        #                                   class_id=np.array([1 for _ in range(len(detections_per_area))]))
-        # BOUNDING_BOX_ANNOTATOR = sv.BoundingBoxAnnotator(thickness=2)
-        # LABEL_ANNOTATOR = sv.LabelAnnotator(text_thickness=2, text_scale=1, text_color=sv.Color.BLACK)
-        # annotated_image = annotated_image.copy()
-        # annotated_image = LABEL_ANNOTATOR.annotate(annotated_image, detections_per_area_)
-        # sv.plot_image(annotated_image, (10, 10))
-        ##########################################################
         if posture == 'diagonal':
-            # image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-            # exact_detections = get_edge_points(detections_per_area, image_rgb)
-            # # displaying the points
-            # for cord in exact_detections:
-            #     display_edge_points(annotated_image, cord)
-            # free_spots = free_parking_exact_coord(exact_detections, reference_car)
-            # display_empty_spot(annotated_image, free_spots)
-            exact_coordinates = []
-            for mask in masks:
-                mask_edge_points = get_mask_edge_points(mask)
-                exact_coordinates.append(mask_edge_points)
-            detections_per_area = detections_in_area(exact_coordinates,parking_area_bbox)
-            reference_car = find_average_car(detections_per_area)
-            free_parking_exact_coord(free_spots,detections_per_area,reference_car)
+            continue
+            # exact_coordinates = []
+            # for mask in masks:
+            #     mask_edge_points = get_mask_edge_points(mask)
+            #     exact_coordinates.append(mask_edge_points)
+            # detections_per_area = detections_in_area(exact_coordinates,parking_area_bbox)
+            # reference_car = find_average_car(detections_per_area)
+            # free_parking_exact_coord(free_spots,detections_per_area,reference_car)
 
         else:
             free_parking_between_cars(free_spots, detections_per_area, reference_car)
 
         free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)
-        # print(free_spots)
-        return free_spots
+    # present_results(free_spots, "../Tests/empty_spots/scene3/test1/1.png")
+    return free_spots
