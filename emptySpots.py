@@ -292,5 +292,5 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
             free_parking_between_cars(free_spots, detections_per_area, reference_car)
 
         free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)
-    # present_results(free_spots, "../Tests/empty_spots/scene3/test1/1.png")
+    # present_results(free_spots, image)
     return free_spots
