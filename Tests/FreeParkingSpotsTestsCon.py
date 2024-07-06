@@ -2,7 +2,7 @@ import unittest
 import os
 import xml.etree.ElementTree as ET
 from yolo import *
-from parkingAreaIdentification import parking_mark
+from parkingAreaIdentification import parking_mark, mixed_parking_mark
 from emptySpots import find_empty_spots
 
 
@@ -10,6 +10,7 @@ class Tests(unittest.TestCase):
     FILE_NAME = ""
     base_dir = 'empty_spots'
     parking_area_path = '../Parking_areas'
+    mixed_test_path = '../Tests/empty_spots/mixed'
 
     def test_scene1_test1(self):
         scene_path = os.path.join(self.base_dir, "scene1")
@@ -240,6 +241,73 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
+    # mixed
+    def test_mixed_test1(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test1")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test2(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test2")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test3(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test3")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test4(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test4")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test5(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test5")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test6(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test6")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test7(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test7")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test8(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test8")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test9(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test9")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test10(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test10")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test11(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test11")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
     def calculate_iou(self, box1, box2):
         """
         Calculate the Intersection over Union (IoU) of two bounding boxes.
@@ -314,6 +382,41 @@ class Tests(unittest.TestCase):
                 # list the empty parking spots from our algorithm
                 parking_areas = parking_mark(int(scene_path[-1]), self.parking_area_path)
                 test_boxes = find_empty_spots(png_file, detections, [], parking_areas)
+
+            # self.assertEqual(len(reference_boxes), len(test_boxes))
+
+            ious = []
+            for test in test_boxes:
+                iou = False
+                for reference in reference_boxes:
+                    iou_value = self.calculate_iou(test, reference)
+                    if iou_value >= 0.7:
+                        iou = True
+                        break
+                ious.append(iou)
+            return ious
+
+    def internal_test_mixed_code(self, test_path):
+        if os.path.isdir(test_path):
+            detections, annotated_image = None, None
+            png_file = None
+            xml_file = os.path.join(test_path, "empty_spots.xml")
+
+            # Collect PNG and XML files
+            for file in os.listdir(test_path):
+                if file.endswith('.png') or file.endswith('.jpg'):
+                    png_file = os.path.join(test_path, file)
+
+            # Process PNG files
+            if png_file:
+                detections, masks, annotated_image = predict(png_file)
+
+            # list the correct empty parking spots
+            reference_boxes = self.parse_bounding_boxes(xml_file)
+
+            # list the empty parking spots from our algorithm
+            parking_areas = mixed_parking_mark(test_path)
+            test_boxes = find_empty_spots(png_file, detections, [], parking_areas)
 
             # self.assertEqual(len(reference_boxes), len(test_boxes))
 
