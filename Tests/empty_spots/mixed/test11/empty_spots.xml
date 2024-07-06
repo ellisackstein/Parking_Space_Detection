@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test11</folder>
+	<filename>google_airal_view.jpg</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\mixed\test11\google_airal_view.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1300</width>
+		<height>906</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>empty</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>654</xmin>
+			<ymin>472</ymin>
+			<xmax>797</xmax>
+			<ymax>592</ymax>
+		</bndbox>
+	</object>
+</annotation>

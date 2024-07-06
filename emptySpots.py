@@ -244,6 +244,7 @@ def detections_in_area(detections, parking_area_bbox):
 
     return detections_within_area
 
+
 def present_results(arr, test_path):
     image = cv2.imread(test_path)
     for cord in arr:

@@ -1,0 +1,38 @@
+<annotation>
+	<folder>parking_area_4</folder>
+	<filename>0.png</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Parking_areas\parking_area_4\0.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>vertical</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>3</xmin>
+			<ymin>356</ymin>
+			<xmax>1424</xmax>
+			<ymax>546</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>vertical</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>2</xmin>
+			<ymin>640</ymin>
+			<xmax>1454</xmax>
+			<ymax>898</ymax>
+		</bndbox>
+	</object>
+</annotation>
