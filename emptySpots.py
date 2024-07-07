@@ -103,10 +103,10 @@ def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width
             if distance >= min_parking_spot_width:
                 free_spots.append([car_detections[i][2],
                                    min(car_detections[i][1],
-                                       car_detections[j][1]),
-                                   car_detections[j][0],
+                                       car_detections[i+1][1]),
+                                   car_detections[i+1][0],
                                    max(car_detections[i + 1][3],
-                                       car_detections[j][3])])
+                                       car_detections[i+1][3])])
                 # TODO: check if the min and max are correct
 
     return free_spots
@@ -280,7 +280,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
         posture, parking_area_bbox = parking_area
         detections_per_area = detections_in_area(detections, parking_area_bbox)
 
-        present_results(detections_per_area,"../Tests/empty_spots/scene5/test1/1.png")
+        # present_results(detections_per_area,"../Tests/empty_spots/scene5/test1/1.png")
 
         # This is different from the previous condition because it looks in each area
         if len(detections_per_area) == 0:
