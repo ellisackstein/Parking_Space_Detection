@@ -416,7 +416,7 @@ class Tests(unittest.TestCase):
 
             # list the empty parking spots from our algorithm
             parking_areas = mixed_parking_mark(test_path)
-            test_boxes = find_empty_spots(png_file, detections, [], parking_areas)
+            test_boxes = find_empty_spots(png_file, detections, masks, parking_areas)
 
             # self.assertEqual(len(reference_boxes), len(test_boxes))
 

@@ -153,22 +153,25 @@ def free_parking_exact_coord(free_spots,exact_detections, avg_parking_spot_width
     """
 
     # Sort detections by the x-coordinate of the top-left corner of the bounding boxes
-    exact_detections.sort(key=lambda x: x[0][0])
+    exact_detections.sort(key=lambda x: x[0])
 
     for i in range(len(exact_detections) - 1):
 
         # Calculate the horizontal distance between the current car and the next car
-        d = horizontal_distance_exact_coord(exact_detections[i],
-                                                   exact_detections[i + 1])
+        # d = horizontal_distance_exact_coord(exact_detections[i],
+        #                                            exact_detections[i + 1])
+
+        d = calculate_horizontal_distance(exact_detections[i],
+                                          exact_detections[i+1])
         if d > avg_parking_spot_width:
             free_spots.append(
-                [exact_detections[i][2][0],
+                [exact_detections[i][2],
                  # top left - min x
-                 min(exact_detections[i][1][1],exact_detections[i + 1][1][1]),
+                 min(exact_detections[i][1],exact_detections[i + 1][1]),
                  # bottom right - min y
-                 exact_detections[i+1][0][0],
+                 exact_detections[i+1][0],
                  # bottom left - max x
-                 max(exact_detections[i][3][1], exact_detections[i + 1][3][1])])
+                 max(exact_detections[i][3], exact_detections[i + 1][3])])
                  # top right - max y
 
     return free_spots
@@ -236,13 +239,15 @@ def detections_in_area(detections, parking_area_bbox):
     detections_within_area = []
     for detection in detections: # detections.xyxy in YOLO WORLD
         xmin_det, ymin_det, xmax_det, ymax_det = detection
-        if xmin_area <= xmin_det and \
-                ymin_area <= ymin_det and \
-                xmax_area >= xmax_det and \
-                ymax_area >= ymax_det:
+        if xmin_area <= int(xmin_det) and \
+                ymin_area <= int(ymin_det) and \
+                xmax_area >= int(xmax_det) and \
+                ymax_area >= int(ymax_det):
             detections_within_area.append(detection)
 
     return detections_within_area
+
+
 
 
 def present_results(arr, test_path):
@@ -279,14 +284,20 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
             continue
         reference_car = find_average_car(detections_per_area)
         if posture == 'diagonal':
-            continue
-            # exact_coordinates = []
-            # for mask in masks:
-            #     mask_edge_points = get_mask_edge_points(mask)
-            #     exact_coordinates.append(mask_edge_points)
-            # detections_per_area = detections_in_area(exact_coordinates,parking_area_bbox)
-            # reference_car = find_average_car(detections_per_area)
-            # free_parking_exact_coord(free_spots,detections_per_area,reference_car)
+
+            exact_coordinates = []
+            for mask in masks:
+                mask_edge_points = get_mask_edge_points(mask)
+                mask_edge_points_list = mask_edge_points.tolist()
+                exact_coordinates.append(mask_edge_points_list)
+            l  = [(int(points[0][0]),
+                   int(points[1][1]),
+                   int(points[2][0]),
+                   int(points[3][1])) for points in exact_coordinates]
+            detections_per_area = detections_in_area(l,parking_area_bbox)
+            #reference_car = find_average_car(detections_per_area)
+
+            free_parking_exact_coord(free_spots,detections_per_area,reference_car)
 
         else:
             free_parking_between_cars(free_spots, detections_per_area, reference_car)
