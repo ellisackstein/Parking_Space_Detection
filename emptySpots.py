@@ -252,6 +252,7 @@ def detections_in_area(detections, parking_area_bbox):
 
 def present_results(arr, test_path):
     image = cv2.imread(test_path)
+
     for cord in arr:
         rectangle_coords = cord
 
@@ -279,7 +280,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
         posture, parking_area_bbox = parking_area
         detections_per_area = detections_in_area(detections, parking_area_bbox)
 
-        present_results(detections_per_area,"../Tests/empty_spots/scene4/test2/2.png")
+        present_results(detections_per_area,"../Tests/empty_spots/scene5/test1/1.png")
 
         # This is different from the previous condition because it looks in each area
         if len(detections_per_area) == 0:

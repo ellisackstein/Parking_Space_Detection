@@ -1,6 +1,8 @@
 import unittest
 import os
 import xml.etree.ElementTree as ET
+
+import emptySpots
 from yolo import *
 from parkingAreaIdentification import parking_mark, mixed_parking_mark
 from emptySpots import find_empty_spots
@@ -372,6 +374,7 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
+                emptySpots.present_results(detections,"../Tests/empty_spots/scene5/test1/1.png")
 
             # Process XML file
             reference_boxes, test_boxes = [], []
