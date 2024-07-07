@@ -82,32 +82,19 @@ def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width
         # y2: y-coordinate of the bottom edge of the next car
         y2 = car_detections[i + 1][3]
 
-        # Check for overlaps with other cars
-        overlap = False
-        for j in range(len(car_detections)):
-            if j != i and j != i + 1:
-                car_x1 = car_detections[j][0]
-                car_y1 = car_detections[j][1]
-                car_x2 = car_detections[j][2]
-                car_y2 = car_detections[j][3]
 
-                if not (car_x2 <= x1 or car_x1 >= x2 or car_y2 <= y1 or car_y1 >= y2):
-                    overlap = True
-                    break
-
-        if not overlap:
-            # Calculate the horizontal distance between
-            # the current car and the next car
-            distance = calculate_horizontal_distance(car_detections[i],
-                                                     car_detections[i + 1])
-            if distance >= min_parking_spot_width:
-                free_spots.append([car_detections[i][2],
-                                   min(car_detections[i][1],
-                                       car_detections[i+1][1]),
-                                   car_detections[i+1][0],
-                                   max(car_detections[i + 1][3],
-                                       car_detections[i+1][3])])
-                # TODO: check if the min and max are correct
+        # Calculate the horizontal distance between
+        # the current car and the next car
+        distance = calculate_horizontal_distance(car_detections[i],
+                                                 car_detections[i + 1])
+        if distance >= min_parking_spot_width:
+            free_spots.append([car_detections[i][2],
+                               min(car_detections[i][1],
+                                   car_detections[i+1][1]),
+                               car_detections[i+1][0],
+                               max(car_detections[i + 1][3],
+                                   car_detections[i+1][3])])
+            # TODO: check if the min and max are correct
 
     return free_spots
 
