@@ -14,25 +14,25 @@
 	<object>
 		<name>vertical</name>
 		<pose>Unspecified</pose>
-		<truncated>0</truncated>
+		<truncated>1</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>3</xmin>
-			<ymin>356</ymin>
-			<xmax>1424</xmax>
-			<ymax>546</ymax>
+			<xmin>1</xmin>
+			<ymin>600</ymin>
+			<xmax>1354</xmax>
+			<ymax>925</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>vertical</name>
 		<pose>Unspecified</pose>
-		<truncated>0</truncated>
+		<truncated>1</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>2</xmin>
-			<ymin>640</ymin>
-			<xmax>1454</xmax>
-			<ymax>898</ymax>
+			<xmin>1</xmin>
+			<ymin>298</ymin>
+			<xmax>1418</xmax>
+			<ymax>560</ymax>
 		</bndbox>
 	</object>
 </annotation>
