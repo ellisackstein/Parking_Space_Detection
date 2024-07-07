@@ -295,7 +295,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
                    int(points[2][0]),
                    int(points[3][1])) for points in exact_coordinates]
             detections_per_area = detections_in_area(l,parking_area_bbox)
-            reference_car = find_average_car(detections_per_area)
+            #reference_car = find_average_car(detections_per_area)
 
             free_parking_exact_coord(free_spots,detections_per_area,reference_car)
 
