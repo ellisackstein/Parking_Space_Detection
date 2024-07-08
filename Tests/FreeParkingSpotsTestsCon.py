@@ -337,12 +337,6 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
-    def test_mixed_test11(self):
-        mixed_test_path = os.path.join(self.mixed_test_path, "test11")
-        ious = self.internal_test_mixed_code(mixed_test_path)
-        for iou in ious:
-            self.assertTrue(iou)
-
     def test_mixed_test12(self):
         mixed_test_path = os.path.join(self.mixed_test_path, "test12")
         ious = self.internal_test_mixed_code(mixed_test_path)

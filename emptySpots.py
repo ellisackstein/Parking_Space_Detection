@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 from supervision.detection.core import Detections
 import supervision as sv
 from typing import List
-import segmentation
-from segmentation import *
+from segmentation import get_mask_edge_points
 
 
 def calculate_horizontal_distance(box1, box2):
@@ -82,7 +81,6 @@ def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width
         # y2: y-coordinate of the bottom edge of the next car
         y2 = car_detections[i + 1][3]
 
-
         # Calculate the horizontal distance between
         # the current car and the next car
         distance = calculate_horizontal_distance(car_detections[i],
@@ -90,17 +88,16 @@ def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width
         if distance >= min_parking_spot_width:
             free_spots.append([car_detections[i][2],
                                min(car_detections[i][1],
-                                   car_detections[i+1][1]),
-                               car_detections[i+1][0],
+                                   car_detections[i + 1][1]),
+                               car_detections[i + 1][0],
                                max(car_detections[i + 1][3],
-                                   car_detections[i+1][3])])
+                                   car_detections[i + 1][3])])
             # TODO: check if the min and max are correct
 
     return free_spots
 
 
 def free_parking_in_edge(free_spots, car_detections, min_parking_spot_width, parking_area):
-
     car_detections.sort(key=lambda x: x[0])
 
     # most left car
@@ -125,7 +122,7 @@ def free_parking_in_edge(free_spots, car_detections, min_parking_spot_width, par
     return free_spots
 
 
-def free_parking_exact_coord(free_spots,exact_detections, avg_parking_spot_width):
+def free_parking_exact_coord(free_spots, exact_detections, avg_parking_spot_width):
     """
     Identify free parking spots based on the distance between car detections,
     ensuring no other car overlaps the free spot.
@@ -149,17 +146,17 @@ def free_parking_exact_coord(free_spots,exact_detections, avg_parking_spot_width
         #                                            exact_detections[i + 1])
 
         d = calculate_horizontal_distance(exact_detections[i],
-                                          exact_detections[i+1])
+                                          exact_detections[i + 1])
         if d > avg_parking_spot_width:
             free_spots.append(
                 [exact_detections[i][2],
                  # top left - min x
-                 min(exact_detections[i][1],exact_detections[i + 1][1]),
+                 min(exact_detections[i][1], exact_detections[i + 1][1]),
                  # bottom right - min y
-                 exact_detections[i+1][0],
+                 exact_detections[i + 1][0],
                  # bottom left - max x
                  max(exact_detections[i][3], exact_detections[i + 1][3])])
-                 # top right - max y
+            # top right - max y
 
     return free_spots
 
@@ -182,12 +179,12 @@ def horizontal_distance_exact_coord(box1, box2):
     t_l_x2 = box2[0][0]  # top-left x of next car
     b_l_x2 = box2[1][0]  # bottom-left x of next car
 
-    #center1 = (t_r_x1 + b_r_x1) / 2
-    #center2 = (t_l_x2 + b_l_x2) / 2
+    # center1 = (t_r_x1 + b_r_x1) / 2
+    # center2 = (t_l_x2 + b_l_x2) / 2
 
     top_distance = abs(t_l_x2 - t_r_x1)
     bottom_distance = abs(b_l_x2 - b_r_x1)
-    return abs(box2[0][0]-box1[2][0])
+    return abs(box2[0][0] - box1[2][0])
 
 
 def display_empty_spot(image, points):
@@ -224,7 +221,7 @@ display_empty_spot
 def detections_in_area(detections, parking_area_bbox):
     xmin_area, ymin_area, xmax_area, ymax_area = parking_area_bbox
     detections_within_area = []
-    for detection in detections: # detections.xyxy in YOLO WORLD
+    for detection in detections:  # detections.xyxy in YOLO WORLD
         xmin_det, ymin_det, xmax_det, ymax_det = detection
         if xmin_area <= int(xmin_det) and \
                 ymin_area <= int(ymin_det) and \
@@ -233,8 +230,6 @@ def detections_in_area(detections, parking_area_bbox):
             detections_within_area.append(detection)
 
     return detections_within_area
-
-
 
 
 def present_results(arr, test_path):
@@ -266,8 +261,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
         detections_per_area = detections_in_area(detections, parking_area_bbox)
-
-        #present_results(detections_per_area, image)
+        present_results(detections_per_area, image)
 
         # This is different from the previous condition because it looks in each area
         if len(detections_per_area) == 0:
@@ -281,18 +275,17 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
                 mask_edge_points = get_mask_edge_points(mask)
                 mask_edge_points_list = mask_edge_points.tolist()
                 exact_coordinates.append(mask_edge_points_list)
-            l  = [(int(points[0][0]),
-                   int(points[1][1]),
-                   int(points[2][0]),
-                   int(points[3][1])) for points in exact_coordinates]
-            detections_per_area = detections_in_area(l,parking_area_bbox)
-            #reference_car = find_average_car(detections_per_area)
+            l = [(int(points[0][0]),
+                  int(points[1][1]),
+                  int(points[2][0]),
+                  int(points[3][1])) for points in exact_coordinates]
+            detections_per_area = detections_in_area(l, parking_area_bbox)
 
-            free_parking_exact_coord(free_spots,detections_per_area,reference_car)
+            free_parking_exact_coord(free_spots, detections_per_area, reference_car)
 
         else:
             free_parking_between_cars(free_spots, detections_per_area, reference_car)
 
         free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)
-    #present_results(free_spots, image)
+    present_results(free_spots, image)
     return free_spots
