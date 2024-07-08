@@ -462,7 +462,7 @@ class Tests(unittest.TestCase):
             parking_areas = mixed_parking_mark(test_path)
             test_boxes = find_empty_spots(png_file, detections, masks, parking_areas)
 
-            # self.assertEqual(len(reference_boxes), len(test_boxes))
+            ## self.assertEqual(len(reference_boxes), len(test_boxes))
 
             ious = []
             for test in test_boxes:
