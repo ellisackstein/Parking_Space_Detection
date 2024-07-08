@@ -41,9 +41,6 @@ def predict(path):
                 x1, y1, x2, y2 = box.xyxy[0].tolist()  # Convert tensor to list
                 car_boxes.append((x1, y1, x2, y2))
 
-        # TODO: delete after debugging
-        present_results(car_boxes, path)
-
     else:
         print("Error: Unable to read the image file.")
 

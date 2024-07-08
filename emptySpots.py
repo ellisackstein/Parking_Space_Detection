@@ -261,7 +261,6 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
         detections_per_area = detections_in_area(detections, parking_area_bbox)
-        present_results(detections_per_area, image)
 
         # This is different from the previous condition because it looks in each area
         if len(detections_per_area) == 0:
@@ -287,5 +286,4 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
             free_parking_between_cars(free_spots, detections_per_area, reference_car)
 
         free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)
-    present_results(free_spots, image)
     return free_spots

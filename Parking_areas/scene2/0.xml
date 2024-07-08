@@ -1,7 +1,7 @@
 <annotation>
-	<folder>parking_area</folder>
+	<folder>parking_area_2</folder>
 	<filename>0.png</filename>
-	<path>C:\Users\Elli\PycharmProjects\Label Img\Moving_car\Scene2\parking_area\0.png</path>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Parking_areas\parking_area_2\0.png</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -12,27 +12,39 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>vertical</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>114</xmin>
-			<ymin>225</ymin>
-			<xmax>1374</xmax>
-			<ymax>436</ymax>
-		</bndbox>
-	</object>
-	<object>
 		<name>diagonal</name>
 		<pose>Unspecified</pose>
 		<truncated>1</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>160</xmin>
-			<ymin>511</ymin>
+			<xmin>152</xmin>
+			<ymin>419</ymin>
 			<xmax>1920</xmax>
 			<ymax>1080</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>vertical</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>122</xmin>
+			<ymin>151</ymin>
+			<xmax>1383</xmax>
+			<ymax>442</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>vertical</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1597</xmin>
+			<ymin>144</ymin>
+			<xmax>1920</xmax>
+			<ymax>411</ymax>
 		</bndbox>
 	</object>
 </annotation>

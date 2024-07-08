@@ -2,6 +2,7 @@ from segment_anything import SamPredictor, sam_model_registry
 import numpy as np
 from SAMworld import *
 
+
 def get_mask_edge_points(mask):
     """
     Get the coordinates of the four edge points

@@ -413,7 +413,6 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
-                #emptySpots.present_results(detections,"../Tests/empty_spots/scene7/test4/4.png")
 
             # Process XML file
             reference_boxes, test_boxes = [], []
@@ -452,17 +451,12 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
-                #emptySpots.present_results(detections,"../Tests/empty_spots/mixed/test12/rav_hen_8.png")
+
             # list the correct empty parking spots
             reference_boxes = self.parse_bounding_boxes(xml_file)
-            #emptySpots.present_results(reference_boxes, "../Tests/empty_spots/mixed/test12/rav_hen_8.png")
 
             # list the empty parking spots from our algorithm
             parking_areas = mixed_parking_mark(test_path)
-            d = []
-            for p in parking_areas:
-                d.append(p[1])
-            #emptySpots.present_results(d,"../Tests/empty_spots/mixed/test11/google_airal_view.jpg")
             test_boxes = find_empty_spots(png_file, detections, masks, parking_areas)
 
             ## self.assertEqual(len(reference_boxes), len(test_boxes))
