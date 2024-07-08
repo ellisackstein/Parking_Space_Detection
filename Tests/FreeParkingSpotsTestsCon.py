@@ -469,7 +469,7 @@ class Tests(unittest.TestCase):
             #emptySpots.present_results(d,"../Tests/empty_spots/mixed/test11/google_airal_view.jpg")
             test_boxes = find_empty_spots(png_file, detections, masks, parking_areas)
 
-            # self.assertEqual(len(reference_boxes), len(test_boxes))
+            ## self.assertEqual(len(reference_boxes), len(test_boxes))
 
             ious = []
             for test in test_boxes:
