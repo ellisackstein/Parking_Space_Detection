@@ -38,6 +38,7 @@ def find_linear_separator_(detections, annotated_image):
 
     return [("unknown", [part1]), ("unknown",[part2])]
 
+
 def find_linear_separator(detections, annotated_image):
     # Extract the center points of the detections
     centers = []
