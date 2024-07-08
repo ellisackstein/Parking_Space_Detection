@@ -13,6 +13,7 @@ class Tests(unittest.TestCase):
     FILE_NAME = ""
     base_dir = 'moving_cars'
 
+    # scene 1
     def test_scene1_test1(self):
         scene_path = os.path.join(self.base_dir, "scene1")
         test_path = os.path.join(scene_path, "test12")
@@ -199,6 +200,7 @@ class Tests(unittest.TestCase):
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
+    # scene 2
     def test_scene2_test2(self):
         scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test1")
@@ -373,6 +375,181 @@ class Tests(unittest.TestCase):
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
+    # scene 4
+    def test_scene4_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test1")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test3(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test2")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test4(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test3")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test5(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test5")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test6(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test6")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test7(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test7")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test8(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test8")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test9(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test9")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test10(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test10")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test11(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test11")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test12(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test12")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test13(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test13")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test14(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test14")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test15(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test15")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test16(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test16")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test17(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test17")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test18(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test18")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test19(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test19")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test20(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test20")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test21(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test21")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test22(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test22")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test23(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test23")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test24(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test24")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test25(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test25")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test26(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test26")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test27(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test27")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test28(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test28")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test29(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test29")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
+    def test_scene4_test30(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test30")
+        iou_value = self.internal_test_code(scene_path, test_path)
+        self.assertTrue(iou_value)
+
     def parse_bounding_boxes(self, xml_file):
         """
         Parse bounding boxes from an XML annotation file.
@@ -473,3 +650,4 @@ class Tests(unittest.TestCase):
         else:
             print("frame 2!")
             return unique_to_image2
+
