@@ -309,6 +309,12 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
+    def test_scene6_test13(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test13")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
     def calculate_iou(self, box1, box2):
         """
         Calculate the Intersection over Union (IoU) of two bounding boxes.
