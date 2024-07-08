@@ -1,7 +1,7 @@
 <annotation>
 	<folder>parking_area_6</folder>
-	<filename>2.png</filename>
-	<path>C:\Users\Elli\PycharmProjects\Label Img\Parking_areas\parking_area_6\2.png</path>
+	<filename>0.png</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Parking_areas\parking_area_6\0.png</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -17,10 +17,10 @@
 		<truncated>1</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>4</xmin>
-			<ymin>426</ymin>
+			<xmin>1</xmin>
+			<ymin>483</ymin>
 			<xmax>1920</xmax>
-			<ymax>1026</ymax>
+			<ymax>1080</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -30,9 +30,9 @@
 		<difficult>0</difficult>
 		<bndbox>
 			<xmin>1</xmin>
-			<ymin>88</ymin>
-			<xmax>788</xmax>
-			<ymax>350</ymax>
+			<ymin>147</ymin>
+			<xmax>1185</xmax>
+			<ymax>424</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -41,10 +41,10 @@
 		<truncated>1</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>1417</xmin>
-			<ymin>165</ymin>
+			<xmin>1422</xmin>
+			<ymin>214</ymin>
 			<xmax>1920</xmax>
-			<ymax>377</ymax>
+			<ymax>440</ymax>
 		</bndbox>
 	</object>
 </annotation>

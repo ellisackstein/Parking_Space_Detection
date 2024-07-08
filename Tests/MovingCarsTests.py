@@ -15,25 +15,25 @@ class Tests(unittest.TestCase):
 
     def test_scene1_test1(self):
         scene_path = os.path.join(self.base_dir, "scene1")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test12")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
     def test_scene1_test2(self):
         scene_path = os.path.join(self.base_dir, "scene1")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test1")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
     def test_scene1_test3(self):
         scene_path = os.path.join(self.base_dir, "scene1")
-        test_path = os.path.join(scene_path, "test3")
+        test_path = os.path.join(scene_path, "test2")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
     def test_scene1_test4(self):
         scene_path = os.path.join(self.base_dir, "scene1")
-        test_path = os.path.join(scene_path, "test4")
+        test_path = os.path.join(scene_path, "test3")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
@@ -195,25 +195,25 @@ class Tests(unittest.TestCase):
 
     def test_scene2_test1(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test12")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
     def test_scene2_test2(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test1")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
     def test_scene2_test3(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test3")
+        test_path = os.path.join(scene_path, "test2")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 
     def test_scene2_test4(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test4")
+        test_path = os.path.join(scene_path, "test3")
         iou_value = self.internal_test_code(scene_path, test_path)
         self.assertTrue(iou_value)
 

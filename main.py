@@ -1,4 +1,4 @@
-# test_path = "Tests/empty_spots/scene2/test1/1.png"
+# test_path = "Tests/empty_spots/scene2/test12/1.png"
 from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import *
