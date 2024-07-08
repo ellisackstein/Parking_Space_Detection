@@ -374,7 +374,7 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
-              #  emptySpots.present_results(detections,"../Tests/empty_spots/scene5/test1/1.png")
+                #emptySpots.present_results(detections,"../Tests/empty_spots/scene6/test2/2.png")
 
             # Process XML file
             reference_boxes, test_boxes = [], []
