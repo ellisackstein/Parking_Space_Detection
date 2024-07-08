@@ -186,7 +186,7 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_scene4_test4(self):
-        # this test doesn't pass because there is a motorcycle in the parking
+        # this test doesn't pass because there is a motorcycle in the parking,
         # and we don't detect anything except cars
         scene_path = os.path.join(self.base_dir, "scene4")
         test_path = os.path.join(scene_path, "test4")
@@ -261,6 +261,8 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_scene7_test4(self):
+        # this test doesn't pass because there is a motorcycle in the parking,
+        # and we don't detect anything except cars
         scene_path = os.path.join(self.base_dir, "scene7")
         test_path = os.path.join(scene_path, "test4")
         ious = self.internal_test_code(scene_path, test_path)
