@@ -31,5 +31,5 @@ else:  # if not supervised, find a linear separator
     parking_areas = find_linear_separator(detections, annotated_image)
 
 # Step 5: Detecting empty parking spots
-free_spots = find_empty_spots(annotated_image, detections, masks, parking_areas)
+free_spots, free_areas = find_empty_spots(annotated_image, detections, masks, parking_areas)
 present_results(free_spots, path1)

@@ -3,7 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 from supervision.detection.core import Detections
 import supervision as sv
-from typing import List
+from typing import List, Tuple
 from segmentation import get_mask_edge_points
 
 
@@ -61,7 +61,7 @@ def find_average_car(detections):
     return average_width
 
 
-def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width):
+def free_parking_between_cars(free_spots, free_areas, posture, car_detections, min_parking_spot_width):
     """
     Identify free parking spots based on the distance between car detections,
     ensuring no other car overlaps the free spot.
@@ -92,12 +92,13 @@ def free_parking_between_cars(free_spots, car_detections, min_parking_spot_width
                                car_detections[i + 1][0],
                                max(car_detections[i + 1][3],
                                    car_detections[i + 1][3])])
+            free_areas.append(posture)
             # TODO: check if the min and max are correct
 
     return free_spots
 
 
-def free_parking_in_edge(free_spots, car_detections, min_parking_spot_width, parking_area):
+def free_parking_in_edge(free_spots, free_areas, posture, car_detections, min_parking_spot_width, parking_area):
     car_detections.sort(key=lambda x: x[0])
 
     # most left car
@@ -109,6 +110,7 @@ def free_parking_in_edge(free_spots, car_detections, min_parking_spot_width, par
                            left_car[1],
                            left_car[0],
                            left_car[3]])
+        free_areas.append(posture)
 
     right_car = car_detections[len(car_detections) - 1]
     distance2 = edge_horizontal_distance(parking_area, right_car, 0)
@@ -118,11 +120,12 @@ def free_parking_in_edge(free_spots, car_detections, min_parking_spot_width, par
                            right_car[1],
                            parking_area[2],
                            right_car[3]])
+        free_areas.append(posture)
 
     return free_spots
 
 
-def free_parking_exact_coord(free_spots, exact_detections, avg_parking_spot_width):
+def free_parking_exact_coord(free_spots, free_areas,posture, exact_detections, avg_parking_spot_width):
     """
     Identify free parking spots based on the distance between car detections,
     ensuring no other car overlaps the free spot.
@@ -157,6 +160,8 @@ def free_parking_exact_coord(free_spots, exact_detections, avg_parking_spot_widt
                  # bottom left - max x
                  max(exact_detections[i][3], exact_detections[i + 1][3])])
             # top right - max y
+            free_areas.append(posture)
+
 
     return free_spots
 
@@ -252,12 +257,18 @@ def present_results(arr, test_path):
     cv2.destroyAllWindows()
 
 
-def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float]]:
-    if len(detections) == 0:
-        # if there are no cars, the entire area is free
-        return [parking_areas]
+def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List[float]], List[str]]:
 
     free_spots = []
+    free_areas = []
+
+    if len(detections) == 0:
+        # if there are no cars, the entire area is free
+        for parking_area in parking_areas:
+            free_spots.append(parking_area[1])
+            free_areas.append(parking_area[0])
+        return free_spots, free_areas
+
     for parking_area in parking_areas:
         posture, parking_area_bbox = parking_area
         detections_per_area = detections_in_area(detections, parking_area_bbox)
@@ -265,10 +276,11 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
         # This is different from the previous condition because it looks in each area
         if len(detections_per_area) == 0:
             free_spots.append(parking_area_bbox)
+            free_areas.append(posture)
             continue
+
         reference_car = find_average_car(detections_per_area)
         if posture == 'diagonal':
-
             exact_coordinates = []
             for mask in masks:
                 mask_edge_points = get_mask_edge_points(mask)
@@ -279,11 +291,12 @@ def find_empty_spots(image, detections, masks, parking_areas) -> List[List[float
                   int(points[2][0]),
                   int(points[3][1])) for points in exact_coordinates]
             detections_per_area = detections_in_area(l, parking_area_bbox)
-
-            free_parking_exact_coord(free_spots, detections_per_area, reference_car)
+            free_parking_exact_coord(free_spots, free_areas, posture, detections_per_area, reference_car)
+            free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
         else:
-            free_parking_between_cars(free_spots, detections_per_area, reference_car)
+            free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
+            free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
-        free_parking_in_edge(free_spots, detections_per_area, reference_car, parking_area_bbox)
-    return free_spots
+    present_results(free_spots, image)
+    return free_spots, free_areas

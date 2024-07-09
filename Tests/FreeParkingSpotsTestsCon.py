@@ -6,6 +6,7 @@ import emptySpots
 from yolo import *
 from parkingAreaIdentification import parking_mark, mixed_parking_mark
 from emptySpots import find_empty_spots
+import matplotlib.pyplot as plt
 
 
 class Tests(unittest.TestCase):
@@ -13,6 +14,8 @@ class Tests(unittest.TestCase):
     base_dir = 'empty_spots'
     parking_area_path = '../Parking_areas'
     mixed_test_path = '../Tests/empty_spots/mixed'
+    success_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
+    failure_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
 
     def test_scene1_test1(self):
         scene_path = os.path.join(self.base_dir, "scene1")
@@ -349,6 +352,41 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
+    def test_success_failure(self):
+        # Categories
+        categories = ['parallel', 'vertical', 'diagonal']
+
+        # Values
+        success_values = [self.success_dict[cat] for cat in categories]
+        failure_values = [self.failure_dict[cat] for cat in categories]
+
+        # Bar width
+        bar_width = 0.4
+
+        # Bar positions
+        r1 = range(len(categories))
+        r2 = [x + bar_width for x in r1]
+
+        # Plotting bars
+        plt.bar(r1, success_values, color='green', width=bar_width, edgecolor='grey', label='Success')
+        plt.bar(r2, failure_values, color='red', width=bar_width, edgecolor='grey', label='Failure')
+
+        # Adding labels
+        plt.xlabel('Category', fontweight='bold')
+        plt.xticks([r + bar_width / 2 for r in range(len(categories))], categories)
+        plt.ylabel('Count', fontweight='bold')
+
+        # Adding legend
+        plt.legend()
+
+        # Setting y-ticks to all integers from 0 to max value + 1
+        max_value = max(max(success_values), max(failure_values))
+        plt.yticks(range(0, max_value + 2))
+
+        # Display plot
+        plt.show()
+        self.assertTrue(True)
+
     def calculate_iou(self, box1, box2):
         """
         Calculate the Intersection over Union (IoU) of two bounding boxes.
@@ -415,26 +453,34 @@ class Tests(unittest.TestCase):
                 detections, masks, annotated_image = predict(png_file)
 
             # Process XML file
-            reference_boxes, test_boxes = [], []
+            reference_boxes, test_boxes, test_areas = [], [], []
             if xml_file:
                 # list the correct empty parking spots
                 reference_boxes = self.parse_bounding_boxes(xml_file)
 
                 # list the empty parking spots from our algorithm
                 parking_areas = parking_mark(int(scene_path[-1]), self.parking_area_path)
-                test_boxes = find_empty_spots(png_file, detections, masks, parking_areas)
+                test_boxes, test_areas = find_empty_spots(png_file, detections, masks, parking_areas)
 
-            # self.assertEqual(len(reference_boxes), len(test_boxes))
+            equal_len = (len(reference_boxes) == len(test_boxes))
 
             ious = []
-            for test in test_boxes:
+            for i in range(len(test_boxes)):
                 iou = False
                 for reference in reference_boxes:
-                    iou_value = self.calculate_iou(test, reference)
+                    iou_value = self.calculate_iou(test_boxes[i], reference)
                     if iou_value >= 0.7:
                         iou = True
                         break
                 ious.append(iou)
+
+                # add details for graph
+                if iou == True:
+                    self.success_dict[test_areas[i]] += 1
+                else:
+                    self.failure_dict[test_areas[i]] += 1
+
+            ious.append(equal_len)
             return ious
 
     def internal_test_mixed_code(self, test_path):
@@ -457,17 +503,24 @@ class Tests(unittest.TestCase):
 
             # list the empty parking spots from our algorithm
             parking_areas = mixed_parking_mark(test_path)
-            test_boxes = find_empty_spots(png_file, detections, masks, parking_areas)
+            test_boxes, test_areas = find_empty_spots(png_file, detections, masks, parking_areas)
 
-            ## self.assertEqual(len(reference_boxes), len(test_boxes))
+            equal_len = (len(reference_boxes) == len(test_boxes))
 
             ious = []
-            for test in test_boxes:
+            for i in range(len(test_boxes)):
                 iou = False
                 for reference in reference_boxes:
-                    iou_value = self.calculate_iou(test, reference)
+                    iou_value = self.calculate_iou(test_boxes[i], reference)
                     if iou_value >= 0.7:
                         iou = True
                         break
                 ious.append(iou)
+                # add details for graph
+                if iou == True:
+                    self.success_dict[test_areas[i]] += 1
+                else:
+                    self.failure_dict[test_areas[i]] += 1
+
+            ious.append(equal_len)
             return ious
