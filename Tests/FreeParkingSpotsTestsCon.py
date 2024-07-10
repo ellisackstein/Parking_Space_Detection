@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
 
     def test_scene1_test2(self):
         scene_path = os.path.join(self.base_dir, "scene1")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -78,21 +78,21 @@ class Tests(unittest.TestCase):
 
     def test_scene2_test2(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test3(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test4(self):
         scene_path = os.path.join(self.base_dir, "scene2")
-        test_path = os.path.join(scene_path, "test3")
+        test_path = os.path.join(scene_path, "test4")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -148,24 +148,28 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_scene3_test4(self):
+        # This test had a correct prediction, and another one on an exicting car which
+        # is incorrect. The reason for this is that YOLO did'nt detect the car.
         scene_path = os.path.join(self.base_dir, "scene3")
         test_path = os.path.join(scene_path, "test4")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
-    # One of the spots is detected successfully.
-    # Another one is detected because YOLO couldn't detect a car behind the tree.
     def test_scene3_test5(self):
+        # This test had a correct prediction, and another one on an exicting car which
+        # is incorrect. The reason for this is that YOLO did'nt detect the car.
+        # TODO: this test is very very similar to the last one, maybe we should delete it
         scene_path = os.path.join(self.base_dir, "scene3")
         test_path = os.path.join(scene_path, "test5")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
-    # One of the spots is detected successfully.
-    # Another one is detected because YOLO couldn't detect a car behind the tree.
     def test_scene3_test6(self):
+        # This test had a correct prediction, and another one on an exicting car which
+        # is incorrect. The reason for this is that YOLO did'nt detect the car.
+        # TODO: this test is very very similar to the two last one, maybe we should delete it
         scene_path = os.path.join(self.base_dir, "scene3")
         test_path = os.path.join(scene_path, "test6")
         ious = self.internal_test_code(scene_path, test_path)
@@ -182,14 +186,16 @@ class Tests(unittest.TestCase):
 
     def test_scene4_test2(self):
         scene_path = os.path.join(self.base_dir, "scene4")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene4_test3(self):
+        # one of the bounding boxes includes a car (or half a car)
+        # that was not detected by YOLO
         scene_path = os.path.join(self.base_dir, "scene4")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -213,14 +219,14 @@ class Tests(unittest.TestCase):
 
     def test_scene5_test2(self):
         scene_path = os.path.join(self.base_dir, "scene5")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene5_test3(self):
         scene_path = os.path.join(self.base_dir, "scene5")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -235,7 +241,7 @@ class Tests(unittest.TestCase):
 
     def test_scene6_test2(self):
         scene_path = os.path.join(self.base_dir, "scene6")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -263,6 +269,9 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_scene7_test3(self):
+        # This test doesn't pass because YOLO captures the most right car's shadow
+        # as part of the detection. This leads to a much smaller gap calculation
+        # that leads to the algorithms mistake.
         scene_path = os.path.join(self.base_dir, "scene7")
         test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
@@ -293,25 +302,24 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_mixed_test2(self):
-        mixed_test_path = os.path.join(self.mixed_test_path, "test1")
-        ious = self.internal_test_mixed_code(mixed_test_path)
-        for iou in ious:
-            self.assertTrue(iou)
-
-    def test_mixed_test3(self):
         mixed_test_path = os.path.join(self.mixed_test_path, "test2")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
             self.assertTrue(iou)
 
-    def test_mixed_test4(self):
+    def test_mixed_test3(self):
         mixed_test_path = os.path.join(self.mixed_test_path, "test3")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
             self.assertTrue(iou)
 
+    def test_mixed_test4(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test4")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
     def test_mixed_test5(self):
-        #failed because avg car size bigger than free space in right edge
         mixed_test_path = os.path.join(self.mixed_test_path, "test5")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
@@ -336,9 +344,6 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_mixed_test9(self):
-        # 1. yolo doesn't detect the car in the middle , so we get a free spot
-        # 2. the minimum size of diagonal car doesn't fit the free spot in between cars
-        # 3. the size in the top right doesn't fit the free spot on the right
         mixed_test_path = os.path.join(self.mixed_test_path, "test9")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
@@ -473,7 +478,7 @@ class Tests(unittest.TestCase):
 
             # Append coordinates to list
             if (xmin == 0) and (ymin == 0) and (xmax == 0) and (ymax == 0):
-                return [[]]
+                return []
             bbox_list.append([xmin, ymin, xmax, ymax])
 
         return bbox_list
@@ -493,7 +498,6 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
-                # present_results(detections,png_file)
 
             # Process XML file
             reference_boxes, test_boxes, test_areas = [], [], []
@@ -560,11 +564,10 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
-                #emptySpots.present_results(detections,png_file)
 
             # list the correct empty parking spots
             reference_boxes = self.parse_bounding_boxes(xml_file)
-            #present_results(reference_boxes,png_file)
+            # present_results(reference_boxes, png_file)
 
             # list the empty parking spots from our algorithm
             parking_areas = mixed_parking_mark(test_path)
@@ -677,4 +680,3 @@ class Tests(unittest.TestCase):
 
             ious.append(len_comparison)
             return ious
-
