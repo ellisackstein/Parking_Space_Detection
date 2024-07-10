@@ -296,7 +296,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
             free_areas.append(posture)
             continue
 
-        reference_car = find_minimum_car(detections_per_area)
+        reference_car = find_average_car(detections_per_area)
         if posture == 'diagonal':
             exact_coordinates = []
             for mask in masks:
