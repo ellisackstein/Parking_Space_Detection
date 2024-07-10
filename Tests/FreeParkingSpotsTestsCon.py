@@ -135,23 +135,21 @@ class Tests(unittest.TestCase):
 
     def test_scene3_test2(self):
         scene_path = os.path.join(self.base_dir, "scene3")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test1")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene3_test3(self):
         scene_path = os.path.join(self.base_dir, "scene3")
-        test_path = os.path.join(scene_path, "test3")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
-    # One of the spots is detected successfully.
-    # Another one is detected because YOLO couldn't detect a car behind the tree.
     def test_scene3_test4(self):
         scene_path = os.path.join(self.base_dir, "scene3")
-        test_path = os.path.join(scene_path, "test4")
+        test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -469,7 +467,7 @@ class Tests(unittest.TestCase):
 
             # Append coordinates to list
             if (xmin == 0) and (ymin == 0) and (xmax == 0) and (ymax == 0):
-                return []
+                return [[]]
             bbox_list.append([xmin, ymin, xmax, ymax])
 
         return bbox_list

@@ -43,7 +43,6 @@ def predict(path):
 
     else:
         print("Error: Unable to read the image file.")
-    # present_results(car_boxes, "../Tests/empty_spots/scene4/test1/1.png")
     return car_boxes, car_masks, image
 
 
