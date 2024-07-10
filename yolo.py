@@ -11,8 +11,8 @@ from inference.models.yolo_world.yolo_world import YOLOWorld
 
 
 def predict(path):
-    # Load a pretrained YOLOv8 segmentation model
-    model = YOLO('yolov9e-seg.pt')
+    # Load a pretrained YOLOv9 segmentation model
+    model = YOLO('yolov9c-seg.pt')
 
     # Open the image file
     image = cv2.imread(path)
