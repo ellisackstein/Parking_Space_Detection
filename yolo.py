@@ -11,8 +11,8 @@ from inference.models.yolo_world.yolo_world import YOLOWorld
 
 
 def predict(path):
-    # Load a pretrained YOLOv8 segmentation model
-    model = YOLO('yolov9e-seg.pt')
+    # Load a pretrained YOLOv9 segmentation model
+    model = YOLO('yolov9c-seg.pt')
 
     # Open the image file
     image = cv2.imread(path)
@@ -43,7 +43,6 @@ def predict(path):
 
     else:
         print("Error: Unable to read the image file.")
-    # present_results(car_boxes, "../Tests/empty_spots/scene4/test1/1.png")
     return car_boxes, car_masks, image
 
 

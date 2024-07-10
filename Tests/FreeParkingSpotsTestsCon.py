@@ -135,23 +135,21 @@ class Tests(unittest.TestCase):
 
     def test_scene3_test2(self):
         scene_path = os.path.join(self.base_dir, "scene3")
-        test_path = os.path.join(scene_path, "test2")
+        test_path = os.path.join(scene_path, "test1")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene3_test3(self):
         scene_path = os.path.join(self.base_dir, "scene3")
-        test_path = os.path.join(scene_path, "test3")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
-    # One of the spots is detected successfully.
-    # Another one is detected because YOLO couldn't detect a car behind the tree.
     def test_scene3_test4(self):
         scene_path = os.path.join(self.base_dir, "scene3")
-        test_path = os.path.join(scene_path, "test4")
+        test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -311,6 +309,7 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_mixed_test5(self):
+        #failed because avg car size bigger than free space in right edge
         mixed_test_path = os.path.join(self.mixed_test_path, "test5")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
@@ -335,6 +334,9 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     def test_mixed_test9(self):
+        # 1. yolo doesn't detect the car in the middle , so we get a free spot
+        # 2. the minimum size of diagonal car doesn't fit the free spot in between cars
+        # 3. the size in the top right doesn't fit the free spot on the right
         mixed_test_path = os.path.join(self.mixed_test_path, "test9")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
@@ -469,7 +471,7 @@ class Tests(unittest.TestCase):
 
             # Append coordinates to list
             if (xmin == 0) and (ymin == 0) and (xmax == 0) and (ymax == 0):
-                return []
+                return [[]]
             bbox_list.append([xmin, ymin, xmax, ymax])
 
         return bbox_list
@@ -489,12 +491,14 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
+                present_results(detections,png_file)
 
             # Process XML file
             reference_boxes, test_boxes, test_areas = [], [], []
             if xml_file:
                 # list the correct empty parking spots
                 reference_boxes = self.parse_bounding_boxes(xml_file)
+                #present_results(reference_boxes, png_file)
 
                 # list the empty parking spots from our algorithm
                 parking_areas = parking_mark(int(scene_path[-1]), self.parking_area_path)
@@ -554,9 +558,11 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
+                #emptySpots.present_results(detections,png_file)
 
             # list the correct empty parking spots
             reference_boxes = self.parse_bounding_boxes(xml_file)
+            #present_results(reference_boxes,png_file)
 
             # list the empty parking spots from our algorithm
             parking_areas = mixed_parking_mark(test_path)
