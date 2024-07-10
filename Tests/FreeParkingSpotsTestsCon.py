@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 import emptySpots
 from yolo import *
 from parkingAreaIdentification import parking_mark, mixed_parking_mark
-from emptySpots import find_empty_spots
+from emptySpots import find_empty_spots, detections_in_area
 import matplotlib.pyplot as plt
 
 
@@ -14,6 +14,8 @@ class Tests(unittest.TestCase):
     base_dir = 'empty_spots'
     parking_area_path = '../Parking_areas'
     mixed_test_path = '../Tests/empty_spots/mixed'
+    ious_values = []
+    delta_lens = []
     success_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
     failure_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
 
@@ -352,13 +354,14 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
-    def test_success_failure(self):
+    @classmethod
+    def plot_success_failure_bars(cls):
         # Categories
         categories = ['parallel', 'vertical', 'diagonal']
 
         # Values
-        success_values = [self.success_dict[cat] for cat in categories]
-        failure_values = [self.failure_dict[cat] for cat in categories]
+        success_values = [cls.success_dict[cat] for cat in categories]
+        failure_values = [cls.failure_dict[cat] for cat in categories]
 
         # Bar width
         bar_width = 0.4
@@ -385,7 +388,38 @@ class Tests(unittest.TestCase):
 
         # Display plot
         plt.show()
-        self.assertTrue(True)
+
+    @classmethod
+    def plot_ious_bar(cls):
+        # Generate the x array
+        x = list(range(1, len(cls.ious_values) + 1))
+
+        # y array is the ious_value array itself
+        y = cls.ious_values
+
+        # Create the bar graph
+        plt.bar(x, y)
+
+        # Add labels and title
+        plt.xlabel('Index')
+        plt.ylabel('IoU Value')
+        plt.title('IoU Values Bar Graph')
+
+        # Show the plot
+        plt.show()
+
+    @classmethod
+    def print_avg_delta(cls):
+        val = sum(cls.delta_lens) / len(cls.delta_lens)
+        print(val)
+        print("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+        return val
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.plot_success_failure_bars()
+        cls.plot_ious_bar()
+        cls.print_avg_delta()
 
     def calculate_iou(self, box1, box2):
         """
@@ -462,7 +496,9 @@ class Tests(unittest.TestCase):
                 parking_areas = parking_mark(int(scene_path[-1]), self.parking_area_path)
                 test_boxes, test_areas = find_empty_spots(png_file, detections, masks, parking_areas)
 
-            equal_len = (len(reference_boxes) == len(test_boxes))
+            # compare the number of detected empty spots
+            len_comparison = len(test_boxes) == len(reference_boxes)
+            self.delta_lens.append(abs(len(reference_boxes)-len(test_boxes)))
 
             ious = []
             for i in range(len(test_boxes)):
@@ -476,17 +512,34 @@ class Tests(unittest.TestCase):
 
                 # add details for graph
                 if iou == True:
+                    self.ious_values.append(iou_value)
+                    reference_boxes.remove(reference)
                     self.success_dict[test_areas[i]] += 1
                 else:
+                    self.ious_values.append(0)
                     self.failure_dict[test_areas[i]] += 1
 
-            ious.append(equal_len)
+            # case test_boxes < reference_boxes
+            parking_areas_bbox = []
+            parking_areas_posture = []
+            for parking_area in parking_areas:
+                parking_areas_posture.append(parking_area[0])
+                parking_areas_bbox.append(parking_area[1])
+
+            if len(reference_boxes) > 0:
+                for j in range(len(parking_areas)):
+                    failures = detections_in_area(reference_boxes, parking_areas_bbox[j])
+                    self.failure_dict[parking_areas_posture[j]] += len(failures)
+                    self.ious_values += [0] * len(failures)
+
+            ious.append(len_comparison)
             return ious
 
     def internal_test_mixed_code(self, test_path):
         if os.path.isdir(test_path):
             detections, annotated_image = None, None
             png_file = None
+            masks = []
             xml_file = os.path.join(test_path, "empty_spots.xml")
 
             # Collect PNG and XML files
@@ -505,7 +558,9 @@ class Tests(unittest.TestCase):
             parking_areas = mixed_parking_mark(test_path)
             test_boxes, test_areas = find_empty_spots(png_file, detections, masks, parking_areas)
 
-            equal_len = (len(reference_boxes) == len(test_boxes))
+            # compare the number of detected empty spots
+            len_comparison = len(test_boxes) == len(reference_boxes)
+            self.delta_lens.append(abs(len(reference_boxes)-len(test_boxes)))
 
             ious = []
             for i in range(len(test_boxes)):
@@ -516,11 +571,98 @@ class Tests(unittest.TestCase):
                         iou = True
                         break
                 ious.append(iou)
+
                 # add details for graph
                 if iou == True:
+                    self.ious_values.append(iou_value)
+                    reference_boxes.remove(reference)
                     self.success_dict[test_areas[i]] += 1
                 else:
+                    self.ious_values.append(0)
                     self.failure_dict[test_areas[i]] += 1
 
-            ious.append(equal_len)
+            # case test_boxes < reference_boxes
+            parking_areas_bbox = []
+            parking_areas_posture = []
+            for parking_area in parking_areas:
+                parking_areas_posture.append(parking_area[0])
+                parking_areas_bbox.append(parking_area[1])
+
+            if len(reference_boxes) > 0:
+                for j in range(len(parking_areas)):
+                    failures = detections_in_area(reference_boxes, parking_areas_bbox[j])
+                    self.failure_dict[parking_areas_posture[j]] += len(failures)
+                    self.ious_values += [0] * len(failures)
+
+            ious.append(len_comparison)
             return ious
+
+    def internal_test_mixed_code_(self, test_path):
+        if os.path.isdir(test_path):
+            detections, annotated_image = None, None
+            png_file = None
+            masks = []
+            xml_file = os.path.join(test_path, "empty_spots.xml")
+
+            # Collect PNG and XML files
+            for file in os.listdir(test_path):
+                if file.endswith('.png') or file.endswith('.jpg'):
+                    png_file = os.path.join(test_path, file)
+
+            # Process PNG files
+            if png_file:
+                detections, masks, annotated_image = predict(png_file)
+
+            # list the correct empty parking spots
+            reference_boxes = self.parse_bounding_boxes(xml_file)
+
+            # list the empty parking spots from our algorithm
+            parking_areas = mixed_parking_mark(test_path)
+            test_boxes, test_areas = find_empty_spots(png_file, detections, masks, parking_areas)
+
+            # compare the number of detected empty spots
+            len_comparison = len(test_boxes) == len(reference_boxes)
+            self.delta_lens.append(len_comparison)
+
+            ious = []
+            # key=test_box : value=test_area
+            test_boxes_dict = {test_boxes[i]:test_areas[i] for i in range(len(test_boxes))}
+            for i in range(len(test_boxes)):
+                iou = False
+                for reference in reference_boxes:
+                    iou_value = self.calculate_iou(test_boxes[i], reference)
+                    if iou_value >= 0.7:
+                        iou = True
+                        break
+                ious.append(iou)
+
+                # add details for graph
+                if iou == True:
+                    self.ious_values.append(iou_value)
+                    self.success_dict[test_areas[i]] += 1
+                    reference_boxes.remove(reference)
+                    test_boxes_dict.pop(test_boxes[i])
+
+            # here in dictionary only false test_boxes
+            test_boxes = [key for key in test_boxes_dict]
+            for i in range(len(test_boxes)):
+                max_iou_val, idx = 0, 0
+                if not reference_boxes:
+                    break
+                for j in range(len(reference_boxes)):
+                    iou_value = self.calculate_iou(test_boxes[i], reference[j])
+                    if max_iou_val < iou_value:
+                        max_iou_val, idx = iou_value, j
+                self.ious_values.append(max_iou_val)
+                self.failure_dict[test_boxes_dict[test_boxes[i]]] += 1
+                # reference_boxes.remove(reference_boxes[idx])
+
+            # case test_boxes < reference_boxes
+            if reference_boxes > 0:
+                for area_key in self.success_dict:
+                    failures = detections_in_area(reference_boxes, area_key)
+                    self.failure_dict[area_key] += len(failures)
+
+            ious.append(len_comparison)
+            return ious
+
