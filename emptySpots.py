@@ -60,6 +60,22 @@ def find_average_car(detections):
 
     return average_width
 
+def find_minimum_car(detections):
+    # Convert detections to a NumPy array for efficient operations
+    boxes = np.array(detections)
+
+    # Extract the x-coordinates of the left and right sides
+    xl = boxes[:, 0]
+    xr = boxes[:, 2]
+
+    # Compute widths
+    widths = np.abs(xr - xl)
+
+    # Calculate the average width
+    minimum_width = np.min(widths)
+
+    return minimum_width
+
 
 def free_parking_between_cars(free_spots, free_areas, posture, car_detections, min_parking_spot_width):
     """
@@ -280,7 +296,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
             free_areas.append(posture)
             continue
 
-        reference_car = find_average_car(detections_per_area)
+        reference_car = find_minimum_car(detections_per_area)
         if posture == 'diagonal':
             exact_coordinates = []
             for mask in masks:
