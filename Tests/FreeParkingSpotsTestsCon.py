@@ -154,6 +154,8 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
+    # One of the spots is detected successfully.
+    # Another one is detected because YOLO couldn't detect a car behind the tree.
     def test_scene3_test5(self):
         scene_path = os.path.join(self.base_dir, "scene3")
         test_path = os.path.join(scene_path, "test5")
