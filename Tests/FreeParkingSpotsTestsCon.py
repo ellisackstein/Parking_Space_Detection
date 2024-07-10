@@ -257,7 +257,7 @@ class Tests(unittest.TestCase):
 
     def test_scene7_test2(self):
         scene_path = os.path.join(self.base_dir, "scene7")
-        test_path = os.path.join(scene_path, "test1")
+        test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -493,7 +493,7 @@ class Tests(unittest.TestCase):
             # Process PNG files
             if png_file:
                 detections, masks, annotated_image = predict(png_file)
-                present_results(detections,png_file)
+                # present_results(detections,png_file)
 
             # Process XML file
             reference_boxes, test_boxes, test_areas = [], [], []
