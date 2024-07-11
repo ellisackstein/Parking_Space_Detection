@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from supervision.detection.core import Detections
 import supervision as sv
 from typing import List, Tuple
-from segmentation import get_mask_edge_points
+from segmentation import get_mask_edge_points, visualize_masks
 
 
 def calculate_horizontal_distance(box1, box2):
@@ -301,9 +301,12 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
         reference_car = find_average_car(detections_per_area)
         # reference_car = find_minimum_car(detections_per_area)
         if posture == 'diagonal':
+            # visualize_masks(image, masks)
             exact_coordinates = []
+            # exact_coordinates_ = []
             for mask in masks:
                 mask_edge_points = get_mask_edge_points(mask)
+                # exact_coordinates_.append(mask_edge_points)
                 mask_edge_points_list = mask_edge_points.tolist()
                 exact_coordinates.append(mask_edge_points_list)
             l = [(int(points[0][0]),
@@ -311,6 +314,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
                   int(points[2][0]),
                   int(points[3][1])) for points in exact_coordinates]
             detections_per_area = detections_in_area(l, parking_area_bbox)
+            # visualize_masks(image, exact_coordinates_)
             free_parking_exact_coord(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 

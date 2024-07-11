@@ -36,6 +36,7 @@ def get_mask_edge_points(mask):
         y_max = coords[np.argmax(coords[:, 1])]
         return np.array([x_min, y_min, x_max, y_max])
 
+
 def get_edge_points(detections, annotated_image):
     image = annotated_image
     sam_checkpoint = "sam_vit_h_4b8939.pth"
@@ -59,27 +60,35 @@ def get_edge_points(detections, annotated_image):
 
     return edge_points
 
-##################### TESTING #####################
 
-# img_path = "test_img/20240426_111900.jpg"
-#
-# car_boxes, car_masks = predict_yolo_9(img_path)
-# image = cv2.imread(img_path)
-#
-# exact_coordinates = []
-# for mask in car_masks:
-#     mask_edge_points = get_mask_edge_points(mask)
-#     exact_coordinates.append(mask_edge_points)
-#     print(mask_edge_points)
-#     plt.figure(figsize=(10, 10))
-#     plt.imshow(image)
-#     display_edge_points(image, mask_edge_points)
-#     show_mask(mask, plt.gca())
-#     plt.axis('off')
-#
-# free_spots = []
-# reference_car = find_average_car(exact_coordinates)
-# free_spots = free_parking_exact_coord(free_spots,exact_coordinates,300)
-# present_results(free_spots,img_path)
+def visualize_masks(image_path, masks):
+    # Load the image
+    image = cv2.imread(image_path)
 
-###################################################
+    if image is None:
+        print(f"Error: Unable to read the image file '{image_path}'.")
+        return
+
+    # Convert image from BGR to RGB (for compatibility with Matplotlib)
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Draw contours for each mask on the image
+    for mask in masks:
+        # Create a mask image of zeros with same shape as original image
+        mask_image = np.zeros_like(image_rgb)
+
+        # Reshape the mask to (n, 1, 2) for cv2.fillPoly
+        mask_points = mask.reshape((-1, 1, 2)).astype(np.int32)
+
+        # Draw filled contour for the mask
+        cv2.fillPoly(mask_image, [mask_points], (255, 255, 255))  # White color for mask
+
+        # Overlay mask on the original image
+        image_rgb = cv2.addWeighted(image_rgb, 1, mask_image, 0.5, 0)
+
+    # Display the image with overlaid masks
+    plt.figure(figsize=(10, 8))
+    plt.imshow(image_rgb)
+    plt.axis('off')
+    plt.title('Image with Masks Overlay')
+    plt.show()
