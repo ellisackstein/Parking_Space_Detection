@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import math
 import matplotlib.pyplot as plt
 from supervision.detection.core import Detections
 import supervision as sv
@@ -60,6 +61,26 @@ def find_average_car(detections):
 
     return average_width
 
+
+def euclidean_distance(coord1, coord2):
+    x1, y1 = coord1
+    x2, y2 = coord2
+    distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    return distance
+
+
+def find_average_diagonal_car(coords):
+
+    average_points = []
+    for point in coords:
+        x1, y1 = point[0]
+        x2, y2 = point[1]
+        x3, y3 = point[2]
+        x4, y4 = point[3]
+        avg1, avg2 = [(x1 + x4) / 2, (y1 + y4) / 2], [(x2 + x3) / 2, (y2 + y3) / 2]
+        average_points.append(euclidean_distance(avg1, avg2))
+
+    return np.mean(average_points) * 1.25
 
 def find_minimum_car(detections):
     # Convert detections to a NumPy array for efficient operations
@@ -298,8 +319,6 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
             free_areas.append(posture)
             continue
 
-        reference_car = find_average_car(detections_per_area)
-        # reference_car = find_minimum_car(detections_per_area)
         if posture == 'diagonal':
             # visualize_masks(image, masks)
             exact_coordinates = []
@@ -309,16 +328,18 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
                 # exact_coordinates_.append(mask_edge_points)
                 mask_edge_points_list = mask_edge_points.tolist()
                 exact_coordinates.append(mask_edge_points_list)
-            l = [(int(points[0][0]),
+            converted_cords = [(int(points[0][0]),
                   int(points[1][1]),
                   int(points[2][0]),
                   int(points[3][1])) for points in exact_coordinates]
-            detections_per_area = detections_in_area(l, parking_area_bbox)
+            reference_car = find_average_diagonal_car(exact_coordinates)
+            detections_per_area = detections_in_area(converted_cords, parking_area_bbox)
             # visualize_masks(image, exact_coordinates_)
             free_parking_exact_coord(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
         else:
+            reference_car = find_average_car(detections_per_area)
             free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
