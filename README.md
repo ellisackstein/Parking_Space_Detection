@@ -52,9 +52,9 @@ Install requirements from requirements.txt:
 ### 🕹️ Usage
 To run the code, execute the following command at the root of your project, including these three arguments:
 
-1. path - the image/video directory path
-2. method - configured/non-configured
-3. scene_id - in the configured method, every labeled scene gets its own ID
+1. path - the image/video directory path.
+2. method - configured/non-configured.
+3. scene_id - in the configured method, every labeled scene gets its own ID.
    
         $python main.py path method scene_id
 
