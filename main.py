@@ -9,8 +9,8 @@ from emptySpots import *
 CONFIGURED = "configured"
 
 if __name__ == '__main__':
-    # Our algorithm gets: path, scene ID (for collecting parking zones),
-    # and method (configured, non-configured).
+    # Our algorithm gets: path, method (configured, non-configured),
+    # and scene ID (for collecting parking zones).
 
     path = sys.argv[1]
     method = sys.argv[2]
