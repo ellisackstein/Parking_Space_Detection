@@ -1,13 +1,3 @@
-### CONFIGURED EXAMPLE ###
-# test_path = "Tests/empty_spots/scene1/test1/1.png"
-# method = configured
-# scene_id = 1
-
-### NON-CONFIGURED EXAMPLE ###
-# test_path = "Scenes/scene1"
-# method = non-configured
-# scene_id = 1
-
 from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import *
