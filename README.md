@@ -56,15 +56,15 @@ To run the code, execute the following command at the root of your project, incl
 2. method - configured/non-configured.
 3. scene_id - in the configured method, every labeled scene gets its own ID.
    
-        $python main.py path method scene_id
+        python main.py path method scene_id
 
 Example for the CONFIGURES method:
 
-    $python main Tests/empty_spots/scene1/test1/1.png configured 1
+    python main Tests/empty_spots/scene1/test1/1.png configured 1
 
 Example for the NON-CONFIGURED method: 
     
-    $python main Scenes/scene1 non-configured 0
+    python main Scenes/scene1 non-configured 0
   
 
 ## 🧪 Testing
@@ -116,7 +116,7 @@ If you want to get live data, you can use the ESP32 camera module, just as we di
 5. **Add the Captured Picture to the Project**
    - Finally, add the captured picture to the project's repository and run the code using its path.
 
-          $python main.py path method scene_id
+          python main.py path method scene_id
 
 ## ⚙️ Built With
   - [Yolov9 repository](https://github.com/WongKinYiu/yolov9/tree/main?tab=readme-ov-file#evaluation) - Used for detecting cars
