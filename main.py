@@ -1,5 +1,13 @@
-# test_path = "Tests/empty_spots/scene2/test12/1.png"
-import sys
+### CONFIGURED EXAMPLE ###
+# test_path = "Tests/empty_spots/scene1/test1/1.png"
+# method = configured
+# scene_id = 1
+
+### NON-CONFIGURED EXAMPLE ###
+# test_path = "Scenes/scene1"
+# method = non-configured
+# scene_id = 1
+
 from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import *
@@ -7,11 +15,13 @@ from parkingAreaIdentification import *
 from linearSeparator import find_linear_separator
 from SAMworld import *  # only for testing and displaying
 from emptySpots import *
+
 CONFIGURED = "configured"
 
 if __name__ == '__main__':
-    # Our algorithm gets: scene ID (for collecting parking zones),
-    # Method (configured, non-configured) and path.
+    # Our algorithm gets: path, scene ID (for collecting parking zones),
+    # and method (configured, non-configured).
+
     path = sys.argv[1]
     method = sys.argv[2]
     scene_id = sys.argv[3]
