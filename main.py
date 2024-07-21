@@ -1,14 +1,17 @@
+from time import sleep
+
+from esp_capture import manually_save_stream, CameraClient
 from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import *
+import sys
 from parkingAreaIdentification import *
 from linearSeparator import find_linear_separator
-from SAMworld import *  # only for testing and displaying
 from emptySpots import *
 
 CONFIGURED = "configured"
 
-if __name__ == '__main__':
+def main():
     # Our algorithm gets: path, method (configured, non-configured),
     # and scene ID (for collecting parking zones).
 
@@ -16,8 +19,15 @@ if __name__ == '__main__':
     method = sys.argv[2]
     scene_id = sys.argv[3]
 
+    stream_url = "http://192.168.1.150:81/stream"
+    resolution_url = "http://192.168.1.150/control?var=framesize&val=13"
+    save_dir = './saved_images'
+
+    client = CameraClient(stream_url, resolution_url, save_dir)
+
     # The configured method
     if method == CONFIGURED:
+        client.run(1)
 
         # Step 1 : Get predictions
         detections, masks, annotated_image = predict(path)
@@ -31,6 +41,8 @@ if __name__ == '__main__':
 
     # The non-configured method
     else:
+        client.run(100)
+
         # Step 1: Preprocessing video of destination
         path1, path2 = preprocessing(path)
 
@@ -48,3 +60,7 @@ if __name__ == '__main__':
         # Step 5: Detecting empty parking spots
         free_spots, free_areas = find_empty_spots(annotated_image, detections, masks, parking_areas)
         present_results(free_spots, path1)
+
+
+if __name__ == '__main__':
+    main()

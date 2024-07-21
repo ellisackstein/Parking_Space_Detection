@@ -343,5 +343,5 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
             free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
-    # present_results(free_spots, image)
+    present_results(free_spots, image)
     return free_spots, free_areas
