@@ -49,6 +49,23 @@ Install requirements from requirements.txt:
     pip install -r requirements.txt
    ```
 
+### 🕹️ Usage
+To run the code, execute the following command at the root of your project, including these three arguments:
+
+1. path - the image/video directory path.
+2. method - configured/non-configured.
+3. scene_id - in the configured method, every labeled scene gets its own ID.
+   
+        python main.py path method scene_id
+
+Example for the CONFIGURES method:
+
+    python main Tests/empty_spots/scene1/test1/1.png configured 1
+
+Example for the NON-CONFIGURED method: 
+    
+    python main Scenes/scene1 non-configured 0
+  
 
 ## 🧪 Testing
 We tested our two approaches : Configured and Non-configured.
@@ -97,9 +114,9 @@ If you want to get live data, you can use the ESP32 camera module, just as we di
 3. **Position the Camera**
    - Place the camera so it is positioned vertically to the street.
 5. **Add the Captured Picture to the Project**
-   - Finally, add the captured picture to the project's repository and insert it into the following code line in the main module:
+   - Finally, add the captured picture to the project's repository and run the code using its path.
 
-           detections, masks, annotated_image = predict(path)
+          python main.py path method scene_id
 
 ## ⚙️ Built With
   - [Yolov9 repository](https://github.com/WongKinYiu/yolov9/tree/main?tab=readme-ov-file#evaluation) - Used for detecting cars
