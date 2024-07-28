@@ -10,6 +10,7 @@ from linearSeparator import find_linear_separator
 from emptySpots import *
 
 CONFIGURED = "configured"
+ADDRESSES = {1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"Harav Hen 10, Jerusalem, Israel"}
 
 def main():
     # Our algorithm gets: path, method (configured, non-configured),
@@ -39,6 +40,10 @@ def main():
         # Step 3 : Distinguishing the parking areas
         free_spots, free_areas = find_empty_spots(annotated_image, detections, masks, parking_areas)
         present_results(free_spots, path)
+
+        # step : return the empty spot
+        if len(free_spots) != 0:
+            return {ADDRESSES[8]: path}
 
     # The non-configured method
     else:
