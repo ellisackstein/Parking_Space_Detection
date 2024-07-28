@@ -1,6 +1,6 @@
 from time import sleep
 
-from esp_capture import manually_save_stream, CameraClient
+from esp_capture import CameraClient
 from preprocessing import preprocessing
 from movingVSstat import cancel_moving_cars
 from yolo import *
@@ -15,15 +15,16 @@ def main():
     # Our algorithm gets: path, method (configured, non-configured),
     # and scene ID (for collecting parking zones).
 
-    path = sys.argv[1]
-    method = sys.argv[2]
-    scene_id = sys.argv[3]
-
-    stream_url = "http://192.168.1.150:81/stream"
-    resolution_url = "http://192.168.1.150/control?var=framesize&val=13"
+    # http://10.100.102.3
+    stream_url = " http://10.100.102.13:81/stream"
+    resolution_url = "http://10.100.102.13/control?var=framesize&val=13"
     save_dir = './saved_images'
 
     client = CameraClient(stream_url, resolution_url, save_dir)
+
+    path = save_dir + "/image_latest.jpg"  # sys.argv[1]
+    method = "configured"  # sys.argv[2]
+    scene_id = 8  # sys.argv[3]
 
     # The configured method
     if method == CONFIGURED:

@@ -34,7 +34,7 @@ class CameraClient:
 
             frame_index = 0
             # 128KB
-            frame_buffer = Buffer(128 * 1024)
+            frame_buffer = Buffer(128 * 1024 * 10)
 
             while frame_index < max_frames:
                 timestamp, frame_length = read_mjpeg_frame(stream, boundary, frame_buffer.data, frame_buffer.length)
@@ -48,8 +48,8 @@ class CameraClient:
 
 
 def main():
-    stream_url = "http://192.168.1.150:81/stream"
-    resolution_url = "http://192.168.1.150:80/control?var=framesize&val=13"
+    stream_url = " http://10.100.102.13:81/stream"
+    resolution_url = "http://10.100.102.13/control?var=framesize&val=13"
     save_dir = './saved_images'
 
     client = CameraClient(stream_url, resolution_url, save_dir)
