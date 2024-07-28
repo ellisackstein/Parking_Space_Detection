@@ -12,14 +12,14 @@ from emptySpots import *
 CONFIGURED = "configured"
 ADDRESSES = {1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"Harav Hen 10, Jerusalem, Israel"}
 
-def main():
+def run():
     # Our algorithm gets: path, method (configured, non-configured),
     # and scene ID (for collecting parking zones).
 
     # http://10.100.102.3
     stream_url = " http://10.100.102.13:81/stream"
     resolution_url = "http://10.100.102.13/control?var=framesize&val=13"
-    save_dir = './saved_images'
+    save_dir = 'saved_images'
 
     client = CameraClient(stream_url, resolution_url, save_dir)
 
@@ -44,6 +44,7 @@ def main():
         # step : return the empty spot
         if len(free_spots) != 0:
             return {ADDRESSES[8]: path}
+        return {}
 
     # The non-configured method
     else:
@@ -69,4 +70,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    run()

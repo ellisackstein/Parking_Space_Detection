@@ -9,3 +9,4 @@ xml
 numpy>=1.18.5
 ultralytics
 supervision
+flask
