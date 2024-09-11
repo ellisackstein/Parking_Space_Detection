@@ -295,6 +295,31 @@ def present_results(arr, test_path):
     cv2.destroyAllWindows()
 
 
+def save_results(arr, test_path, save_path):
+    # Read the image from the specified path
+    image = cv2.imread(test_path)
+
+    for cord in arr:
+        rectangle_coords = cord
+
+        # Draw the rectangle on the image
+        color = (0, 255, 0)
+        thickness = 2
+        cv2.rectangle(image, (int(rectangle_coords[0]), int(rectangle_coords[1])),
+                      (int(rectangle_coords[2]), int(rectangle_coords[3])), color, thickness)
+
+    # Save the image with the rectangles to the specified path
+    cv2.imwrite(save_path, image)
+
+    # cv2.namedWindow("Image with Rectangle", cv2.WINDOW_NORMAL)
+
+    # Display the image with the rectangle
+    # cv2.imshow("Image with Rectangle", image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    return save_path
+
 def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List[float]], List[str]]:
 
     free_spots = []
@@ -311,7 +336,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
         posture, parking_area_bbox = parking_area
         detections_per_area = detections_in_area(detections, parking_area_bbox)
         # present_results([parking_area_bbox], image)
-        # present_results(detections_per_area, image)
+        # present_results(detections_per_area, "./trial/image_latest.jpg")
 
         # This is different from the previous condition because it looks in each area
         if len(detections_per_area) == 0:
@@ -343,5 +368,5 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
             free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
-    present_results(free_spots, "./saved_images/image_latest.jpg")
+    # present_results(free_spots, "./trial/image_latest.jpg")
     return free_spots, free_areas

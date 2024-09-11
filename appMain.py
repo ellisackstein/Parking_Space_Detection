@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from example import free_spots_detection_func
+#from example import free_spots_detection_func
 from main import run
 
 app = Flask(__name__)

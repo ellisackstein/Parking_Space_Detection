@@ -48,9 +48,11 @@ class CameraClient:
 
 
 def main():
-    stream_url = " http://10.100.102.13:81/stream"
-    resolution_url = "http://10.100.102.13/control?var=framesize&val=13"
-    save_dir = './saved_images'
+    # http://10.100.102.13:81/stream
+
+    stream_url = "http://93.172.14.170:91/stream"
+    resolution_url = "http://93.172.14.170:90/control?var=framesize&val=13"
+    save_dir = 'static/trial'
 
     client = CameraClient(stream_url, resolution_url, save_dir)
     client.run(10000)

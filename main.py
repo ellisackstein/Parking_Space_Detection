@@ -16,10 +16,9 @@ def run():
     # Our algorithm gets: path, method (configured, non-configured),
     # and scene ID (for collecting parking zones).
 
-    # http://10.100.102.3
-    stream_url = " http://10.100.102.13:81/stream"
-    resolution_url = "http://10.100.102.13/control?var=framesize&val=13"
-    save_dir = 'saved_images'
+    stream_url = "http://93.172.14.170:91/stream"
+    resolution_url = "http://93.172.14.170:90/control?var=framesize&val=13"
+    save_dir = './save_images'
 
     client = CameraClient(stream_url, resolution_url, save_dir)
 
@@ -39,11 +38,11 @@ def run():
 
         # Step 3 : Distinguishing the parking areas
         free_spots, free_areas = find_empty_spots(annotated_image, detections, masks, parking_areas)
-        present_results(free_spots, path)
+        save_results(free_spots, path, 'static/res/image_latest.jpg')
 
-        # step : return the empty spot
+        # step 4 : return the empty spot
         if len(free_spots) != 0:
-            return {ADDRESSES[8]: path}
+            return {ADDRESSES[8]: 'static/res/image_latest.jpg'}
         return {}
 
     # The non-configured method
