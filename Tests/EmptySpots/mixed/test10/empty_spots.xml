@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test10</folder>
+	<filename>rav_hen_8.jpg</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\mixed\test10\rav_hen_8.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>4032</width>
+		<height>3024</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>empty</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>2785</xmin>
+			<ymin>1954</ymin>
+			<xmax>3875</xmax>
+			<ymax>2841</ymax>
+		</bndbox>
+	</object>
+</annotation>

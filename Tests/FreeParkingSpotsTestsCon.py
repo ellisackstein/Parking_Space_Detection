@@ -2,18 +2,17 @@ import unittest
 import os
 import xml.etree.ElementTree as ET
 
-import emptySpots
-from yolo import *
-from parkingAreaIdentification import parking_mark, mixed_parking_mark
-from emptySpots import find_empty_spots, detections_in_area
+from Yolo import *
+from MarkParkingArea import parking_mark, mixed_parking_mark
+from ExtractEmptySpots import find_empty_spots, detections_in_area
 import matplotlib.pyplot as plt
 
 
 class Tests(unittest.TestCase):
     FILE_NAME = ""
-    base_dir = 'empty_spots'
-    parking_area_path = '../Parking_areas'
-    mixed_test_path = '../Tests/empty_spots/mixed'
+    base_dir = 'EmptySpots'
+    parking_area_path = '../ParkingAreas'
+    mixed_test_path = 'EmptySpots/mixed'
     ious_values = []
     delta_lens = []
     success_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
@@ -705,7 +704,7 @@ class Tests(unittest.TestCase):
 
             # Collect PNG and XML files
             for file in os.listdir(test_path):
-                if file.endswith('.png'):
+                if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.jpeg'):
                     png_file = os.path.join(test_path, file)
                 elif file.endswith('.xml'):
                     xml_file = os.path.join(test_path, file)
@@ -778,7 +777,7 @@ class Tests(unittest.TestCase):
 
             # Collect PNG and XML files
             for file in os.listdir(test_path):
-                if file.endswith('.png') or file.endswith('.jpg'):
+                if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.jpeg'):
                     png_file = os.path.join(test_path, file)
 
             # Process PNG files

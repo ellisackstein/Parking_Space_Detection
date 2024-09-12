@@ -1,13 +1,13 @@
 from time import sleep
 
-from esp_capture import CameraClient
-from preprocessing import preprocessing
-from movingVSstat import cancel_moving_cars
-from yolo import *
+from EspCapture import CameraClient
+from Preprocessing import preprocessing
+from CancelMovingCars import cancel_moving_cars
+from Yolo import *
 import sys
-from parkingAreaIdentification import *
-from linearSeparator import find_linear_separator
-from emptySpots import *
+from MarkParkingArea import *
+from LinearSeparator import find_linear_separator
+from ExtractEmptySpots import *
 
 CONFIGURED = "configured"
 ADDRESSES = {1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"Harav Hen 10, Jerusalem, Israel"}
@@ -18,7 +18,7 @@ def run():
 
     stream_url = "http://93.172.14.170:91/stream"
     resolution_url = "http://93.172.14.170:90/control?var=framesize&val=13"
-    save_dir = './save_images'
+    save_dir = 'LiveStreamImages'
 
     client = CameraClient(stream_url, resolution_url, save_dir)
 
@@ -34,11 +34,11 @@ def run():
         detections, masks, annotated_image = predict(path)
 
         # Step 2 : Distinguishing the parking areas
-        parking_areas = parking_mark(scene_id, "Parking_areas")
+        parking_areas = parking_mark(scene_id, "ParkingAreas")
 
         # Step 3 : Distinguishing the parking areas
         free_spots, free_areas = find_empty_spots(annotated_image, detections, masks, parking_areas)
-        save_results(free_spots, path, 'static/res/image_latest.jpg')
+        save_results(free_spots, path, 'HaniApp/static/res/image_latest.jpg')
 
         # step 4 : return the empty spot
         if len(free_spots) != 0:

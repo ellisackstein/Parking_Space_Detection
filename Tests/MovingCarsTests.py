@@ -1,17 +1,17 @@
-from movingVSstat import moving_vs_stat
+from CancelMovingCars import moving_vs_stat
 import supervision as sv
 
 import unittest
 import os
 import xml.etree.ElementTree as ET
-from yolo import predict_yolo_world, predict
-from parkingAreaIdentification import parking_mark
-from emptySpots import find_empty_spots
+from Yolo import predict
+from MarkParkingArea import parking_mark
+from ExtractEmptySpots import find_empty_spots
 
 
 class Tests(unittest.TestCase):
     FILE_NAME = ""
-    base_dir = 'moving_cars'
+    base_dir = 'MovingCars'
 
     # scene 1
     def test_scene1_test1(self):

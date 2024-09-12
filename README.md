@@ -2,7 +2,7 @@
 Use this template to describe and document your engineering project.
 
 <!-- cool project cover image -->
-![Project Cover Image](bin/logo.png)
+![Project Cover Image](HaniApp/static/img/HaniLogo.jpeg)
 
 <!-- table of content -->
 ## Table of Contents

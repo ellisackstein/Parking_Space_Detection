@@ -1,0 +1,38 @@
+<annotation>
+	<folder>test18</folder>
+	<filename>18.jpg</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\scene8\test18\18.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>360</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>empty</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>48</xmin>
+			<ymin>145</ymin>
+			<xmax>204</xmax>
+			<ymax>299</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>empty</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>304</xmin>
+			<ymin>146</ymin>
+			<xmax>490</xmax>
+			<ymax>316</ymax>
+		</bndbox>
+	</object>
+</annotation>

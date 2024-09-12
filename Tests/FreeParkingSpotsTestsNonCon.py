@@ -1,16 +1,16 @@
 import unittest
 import os
 import xml.etree.ElementTree as ET
-from yolo import *
-from linearSeparator import find_linear_separator
-from emptySpots import find_empty_spots
+from Yolo import *
+from LinearSeparator import find_linear_separator
+from ExtractEmptySpots import find_empty_spots
 
 
 class Tests(unittest.TestCase):
     FILE_NAME = ""
-    base_dir = 'empty_spots'
-    parking_area_path = '../Parking_areas'
-    mixed_test_path = '../Tests/empty_spots/mixed'
+    base_dir = 'EmptySpots'
+    parking_area_path = '../ParkingAreas'
+    mixed_test_path = 'EmptySpots/mixed'
 
     def test_scene1_test1(self):
         scene_path = os.path.join(self.base_dir, "scene1")
@@ -408,7 +408,7 @@ class Tests(unittest.TestCase):
         if os.path.isdir(test_path):
             detections, annotated_image = None, None
             png_file = None
-            xml_file = os.path.join(test_path, "empty_spots.xml")
+            xml_file = os.path.join(test_path, "EmptySpots.xml")
 
             # Collect PNG and XML files
             for file in os.listdir(test_path):
