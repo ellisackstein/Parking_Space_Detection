@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import cv2
 from ExtractEmptySpots import present_results
-# try
+
 
 def predict(path):
     # Load a pretrained YOLOv8 segmentation model
@@ -36,7 +36,7 @@ def predict(path):
 
     else:
         print("Error: Unable to read the image file.")
-    #present_results(car_boxes,path)
+    present_results(car_boxes,path)
     return car_boxes, car_masks, image
 
 #predict("static/res/image_latest.jpg")

@@ -16,7 +16,7 @@ def run_script():
     address_photos = free_spots_detection_func()
 
     # our algorithm
-    # address_photos = run()
+    address_photos = run()
     return render_template('parkingDisplay.html', address_photos=address_photos)
 
 

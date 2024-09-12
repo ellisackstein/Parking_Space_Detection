@@ -10,7 +10,7 @@ from LinearSeparator import find_linear_separator
 from ExtractEmptySpots import *
 
 CONFIGURED = "configured"
-ADDRESSES = {1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"Harav Hen 10, Jerusalem, Israel"}
+ADDRESSES = {1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "Harav Hen 10, Jerusalem, Israel"}
 
 def run():
     # Our algorithm gets: path, method (configured, non-configured),
