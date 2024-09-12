@@ -43,7 +43,7 @@ def predict(path):
 
     else:
         print("Error: Unable to read the image file.")
-    # present_results(car_boxes,path)
+    #present_results(car_boxes,path)
     return car_boxes, car_masks, image
 
 
@@ -63,3 +63,5 @@ def predict_yolo_world(path):
     # sv.plot_image(annotated_image, (10, 10))
 
     return detections, annotated_image
+
+#predict("static/res/image_latest.jpg")
