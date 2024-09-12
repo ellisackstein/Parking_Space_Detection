@@ -1,7 +1,7 @@
 <annotation>
-	<folder>test1</folder>
-	<filename>1.jpeg</filename>
-	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\scene9\test1\1.jpeg</path>
+	<folder>parking_area_9</folder>
+	<filename>0.jpeg</filename>
+	<path>C:\Users\Elli\PycharmProjects\Label Img\Parking_areas\parking_area_9\0.jpeg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -12,27 +12,27 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>vertical</name>
+		<name>parallel</name>
 		<pose>Unspecified</pose>
-		<truncated>1</truncated>
+		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>1</xmin>
-			<ymin>149</ymin>
-			<xmax>503</xmax>
-			<ymax>229</ymax>
+			<xmin>87</xmin>
+			<ymin>252</ymin>
+			<xmax>509</xmax>
+			<ymax>346</ymax>
 		</bndbox>
 	</object>
 	<object>
-		<name>vertical</name>
+		<name>parallel</name>
 		<pose>Unspecified</pose>
 		<truncated>1</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>34</xmin>
-			<ymin>240</ymin>
-			<xmax>498</xmax>
-			<ymax>360</ymax>
+			<xmin>0</xmin>
+			<ymin>150</ymin>
+			<xmax>506</xmax>
+			<ymax>226</ymax>
 		</bndbox>
 	</object>
 </annotation>

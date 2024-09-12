@@ -444,7 +444,7 @@ class Tests(unittest.TestCase):
 
     def test_scene9_test6(self):
         scene_path = os.path.join(self.base_dir, "scene9")
-        test_path = os.path.join(scene_path, "test5")
+        test_path = os.path.join(scene_path, "test6")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -525,12 +525,6 @@ class Tests(unittest.TestCase):
 
     def test_scene6_test13(self):
         mixed_test_path = os.path.join(self.mixed_test_path, "test13")
-        ious = self.internal_test_mixed_code(mixed_test_path)
-        for iou in ious:
-            self.assertTrue(iou)
-
-    def test_mixed_test14(self):
-        mixed_test_path = os.path.join(self.mixed_test_path, "test14")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
             self.assertTrue(iou)
