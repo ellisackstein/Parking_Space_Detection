@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import cv2
 from ExtractEmptySpots import present_results
-
+# try
 
 def predict(path):
     # Load a pretrained YOLOv8 segmentation model
