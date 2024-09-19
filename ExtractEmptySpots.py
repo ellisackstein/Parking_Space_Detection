@@ -424,7 +424,7 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
                   int(points[3][1])) for points in exact_coordinates]
             reference_car = find_average_diagonal_car(exact_coordinates)
             detections_per_area = detections_in_area(converted_cords, parking_area_bbox)
-            # visualize_masks(image, exact_coordinates_)
+            visualize_masks(image, exact_coordinates_)
             free_parking_exact_coord(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
@@ -433,5 +433,5 @@ def find_empty_spots(image, detections, masks, parking_areas) -> Tuple[List[List
             free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
             free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
-    #present_results(free_spots, image)
+    present_results(free_spots, image)
     return free_spots, free_areas

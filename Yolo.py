@@ -36,7 +36,7 @@ def predict(path):
 
     else:
         print("Error: Unable to read the image file.")
-    #present_results(car_boxes,path)
+    present_results(car_boxes,path)
     return car_boxes, car_masks, image
 
 #predict("static/res/image_latest.jpg")
