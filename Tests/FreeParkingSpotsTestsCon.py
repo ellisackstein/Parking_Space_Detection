@@ -294,6 +294,7 @@ class Tests(unittest.TestCase):
             self.assertTrue(iou)
 
     # Scene 8
+    # This test fails
     def test_scene8_test1(self):
         scene_path = os.path.join(self.base_dir, "scene8")
         test_path = os.path.join(scene_path, "test1")

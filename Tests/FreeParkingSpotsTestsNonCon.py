@@ -408,7 +408,7 @@ class Tests(unittest.TestCase):
         if os.path.isdir(test_path):
             detections, annotated_image = None, None
             png_file = None
-            xml_file = os.path.join(test_path, "EmptySpots.xml")
+            xml_file = os.path.join(test_path, "empty_spots.xml")
 
             # Collect PNG and XML files
             for file in os.listdir(test_path):

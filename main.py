@@ -31,13 +31,13 @@ def run():
         client.run(1)
 
         # Step 1 : Get predictions
-        detections, masks, annotated_image = predict(path)
+        detections, masks = predict(path)
 
         # Step 2 : Distinguishing the parking areas
         parking_areas = parking_mark(scene_id, "ParkingAreas")
 
         # Step 3 : Distinguishing the parking areas
-        free_spots, free_areas = find_empty_spots(annotated_image, detections, masks, parking_areas)
+        free_spots, free_areas = find_empty_spots(path, detections, masks, parking_areas)
         save_results(free_spots, path, 'HaniApp/static/res/image_latest.jpg')
 
         # step 4 : return the empty spot

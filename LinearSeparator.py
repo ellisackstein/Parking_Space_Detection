@@ -71,7 +71,6 @@ def find_linear_separator(detections, annotated_image):
     cv2.rectangle(annotated_image, (0, upper_area_y1), (image_width, upper_area_y2), (0, 255, 0), 2)
     cv2.rectangle(annotated_image, (0, lower_area_y1), (image_width, lower_area_y2), (255, 0, 0), 2)
 
-    # Optionally display the annotated image with the separator and areas
     # sv.plot_image(annotated_image, (10, 10))  # Uncomment to display the image
 
     return [("upper_area", upper_area_bbox), ("lower_area", lower_area_bbox)]
