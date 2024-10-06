@@ -5,12 +5,8 @@ import numpy as np
 def calculate_iou(box1, box2):
     """
     Calculate the Intersection over Union (IoU) of two bounding boxes.
-
-    Args:
-        box1, box2: Bounding boxes in the format [x1, y1, x2, y2]
-
-    Returns:
-        iou: IoU value
+    Args: box1, box2 - Bounding boxes in the format [x1, y1, x2, y2]
+    Returns: iou - IoU value
     """
 
     # calculate top left
@@ -33,13 +29,11 @@ def compare_detections(detections1, detections2, iou_threshold=0.70):
     """
     Compare two sets of detections and find unique detections in each set based on IoU.
 
-    Args:
-        detections1, detections2: Detections objects with `xyxy` attribute containing bounding boxes.
-        iou_threshold: IoU threshold to consider two boxes as the same.
+    Args: (1) detections1, detections2 - Detections bounding boxes.
+    (2) iou_threshold - IoU threshold to consider two boxes as the same.
 
-    Returns:
-        unique_to_image1: List of detections unique to image 1.
-        unique_to_image2: List of detections unique to image 2.
+    Returns: (1) unique_to_image1 - List of detections unique to image 1.
+    (2) unique_to_image2 - List of detections unique to image 2.
     """
     boxes1 = detections1
     boxes2 = detections2
@@ -102,7 +96,7 @@ def cancel_moving_cars(detections1, masks1, annotated_image1, detections2,masks2
     unique_to_image1, unique_to_image2 = moving_vs_stat(detections1, annotated_image1, detections2, annotated_image2)
     if len(unique_to_image1) <= len(unique_to_image2):
         print("frame 1!")
-        return detections1, masks1,annotated_image1
+        return detections1, masks1, annotated_image1
     else:
         print("frame 2!")
-        return detections2, masks2,annotated_image2
+        return detections2, masks2, annotated_image2

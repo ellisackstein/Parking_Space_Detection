@@ -1,9 +1,9 @@
 import unittest
 import os
 import xml.etree.ElementTree as ET
-from Yolo import *
-from LinearSeparator import find_linear_separator
-from ExtractEmptySpots import find_empty_spots
+from Utils.Yolo import *
+from Utils.LinearSeparator import find_linear_separator
+from Utils.ExtractEmptySpots import find_empty_spots
 
 
 class Tests(unittest.TestCase):

@@ -1,16 +1,14 @@
-from time import sleep
-
-from EspCapture import CameraClient
-from Preprocessing import preprocessing
-from CancelMovingCars import cancel_moving_cars
-from Yolo import *
-import sys
-from MarkParkingArea import *
-from LinearSeparator import find_linear_separator
-from ExtractEmptySpots import *
+from Utils.EspCapture import CameraClient
+from Utils.Preprocessing import preprocessing
+from Utils.CancelMovingCars import cancel_moving_cars
+from Utils.Yolo import *
+from Utils.MarkParkingArea import *
+from Utils.LinearSeparator import find_linear_separator
+from Utils.ExtractEmptySpots import *
 
 CONFIGURED = "configured"
 ADDRESSES = {1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "Harav Hen 10, Jerusalem, Israel"}
+
 
 def run():
     # Our algorithm gets: path, method (configured, non-configured),
@@ -22,9 +20,9 @@ def run():
 
     client = CameraClient(stream_url, resolution_url, save_dir)
 
-    path = save_dir + "/image_latest.jpg"  # sys.argv[1]
-    method = "configured"  # sys.argv[2]
-    scene_id = 8  # sys.argv[3]
+    path = save_dir + "/image_latest.jpg"
+    method = "configured"
+    scene_id = 8
 
     # The configured method
     if method == CONFIGURED:
