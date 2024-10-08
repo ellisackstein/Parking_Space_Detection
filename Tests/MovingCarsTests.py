@@ -1,12 +1,9 @@
-from CancelMovingCars import moving_vs_stat
-import supervision as sv
+from Utils.CancelMovingCars import moving_vs_stat
 
 import unittest
 import os
 import xml.etree.ElementTree as ET
-from Yolo import predict
-from MarkParkingArea import parking_mark
-from ExtractEmptySpots import find_empty_spots
+from Utils.Yolo import predict
 
 
 class Tests(unittest.TestCase):

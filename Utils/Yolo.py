@@ -1,11 +1,11 @@
 from ultralytics import YOLO
 import cv2
-from ExtractEmptySpots import present_results
+from Utils.ExtractEmptySpots import present_results
 
 
 def predict(path):
     # Load a pretrained YOLOv8 segmentation model
-    model = YOLO('yolov9e-seg.pt')
+    model = YOLO('../yolov9e-seg.pt')
 
     # Open the image file
     image = cv2.imread(path)
@@ -36,7 +36,5 @@ def predict(path):
 
     else:
         print("Error: Unable to read the image file.")
-    present_results(car_boxes,path)
+    # present_results(car_boxes,path)
     return car_boxes, car_masks, image
-
-#predict("static/res/image_latest.jpg")

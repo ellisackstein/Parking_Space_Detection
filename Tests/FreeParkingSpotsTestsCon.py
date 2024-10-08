@@ -2,9 +2,9 @@ import unittest
 import os
 import xml.etree.ElementTree as ET
 
-from Yolo import *
-from MarkParkingArea import parking_mark, mixed_parking_mark
-from ExtractEmptySpots import find_empty_spots, detections_in_area
+from Utils.Yolo import *
+from Utils.MarkParkingArea import parking_mark, mixed_parking_mark
+from Utils.ExtractEmptySpots import find_empty_spots, detections_in_area
 import matplotlib.pyplot as plt
 
 
