@@ -389,7 +389,7 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
-    # Scene 10
+    # Scene 0
     def test_scene0_test1(self):
         scene_path = os.path.join(self.base_dir, "scene0")
         test_path = os.path.join(scene_path, "test1")
@@ -397,7 +397,6 @@ class Tests(unittest.TestCase):
         for iou in ious:
             self.assertTrue(iou)
 
-    # Scene 0
     def test_scene0_test3(self):
         scene_path = os.path.join(self.base_dir, "scene0")
         test_path = os.path.join(scene_path, "test3")
