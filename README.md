@@ -50,21 +50,14 @@ Install requirements from requirements.txt:
    ```
 
 ### 🕹️ Usage
-To run the code, execute the following command at the root of your project, including these three arguments:
+To execute the code, obtain the stream URL and resolution URL for the configured ESP32 camera. Once acquired, insert the URLs in the appropriate sections within the `main.py` file.
 
-1. path - the image/video directory path.
-2. method - configured/non-configured.
-3. scene_id - in the configured method, every labeled scene gets its own ID.
-   
-        python main.py path method scene_id
 
-Example for the CONFIGURES method:
+Example of URL configuration:
 
-    python main Tests/empty_spots/scene1/test1/1.png configured 1
+    stream_url = "http://93.172.14.170:91/stream"
+    resolution_url = "http://93.172.14.170:90/control?var=framesize&val=13"
 
-Example for the NON-CONFIGURED method: 
-    
-    python main Scenes/scene1 non-configured 0
   
 
 ## 🧪 Testing
@@ -95,28 +88,38 @@ In the results, you will find two key tables:
 
 - Algorithm’s Success and Failure: These graphs depict the algorithm's accuracy in detecting empty spots, counting each correctly or incorrectly detected spot. The results are presented in both percentage and absolute numbers.
 
-![resultsInPrecentage](bin/results1.png)
+![resultsInPrecentage](Tests/Precentage.png)
 - IOU Rate: This graph shows the Intersection Over Union (IOU) rate, comparing the algorithm's output boxes to the reference boxes from the test set.
 
-![resultsInPrecentage](bin/resultsIOU.png)
+![resultsInPrecentage](Tests/IOU.png)
 
 
 ## 🚀 Deployment
 
 ### Live Data with ESP32 Camera Module
-If you want to get live data, you can use the ESP32 camera module, just as we did.
+In order to get live data, use the ESP32 camera module, just as we did.
 
 #### Steps to Follow
 1. **Upload Code to the Camera**
    - First, you'll need to upload the following code to the camera using one of the many IDEs that work with ESP controllers (e.g., Arduino IDE). 
-3. **Set Up the Camera**
+2. **Set Up the Camera**
    - Follow this [tutorial](https://www.youtube.com/watch?v=RCtVxZnjPmY) to ensure you can access the camera's URL and capture a live photo from your parking zone.
-3. **Position the Camera**
-   - Place the camera so it is positioned vertically to the street.
-5. **Add the Captured Picture to the Project**
-   - Finally, add the captured picture to the project's repository and run the code using its path.
+3. **Extract Stream and Resolution URLs**
+   - Navigate to the camera's live stream webpage.
+   - Open the browser's Developer Tools (usually F12 or Ctrl+Shift+I).
+   - In the Network tab, filter for media or XHR requests.
+   - Identify and copy the following URLs:
+     - Stream URL: Typically an HLS (.m3u8) or RTMP stream link
+     - Resolution URL: Often a JSON endpoint for available stream qualities
+   - Insert the extracted URLs into the appropriate variables or constants in `main.py`.
+4. **Position the Camera**
+   - Place the camera, so it is positioned vertically to the street.
+5. **Execute the Script**
+   - Run the main script from the command line:
+     ```bash
+     python main.py
+     ```
 
-          python main.py path method scene_id
 
 ## ⚙️ Built With
   - [Yolov9 repository](https://github.com/WongKinYiu/yolov9/tree/main?tab=readme-ov-file#evaluation) - Used for detecting cars
