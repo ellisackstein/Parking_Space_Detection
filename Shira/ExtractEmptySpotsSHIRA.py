@@ -74,6 +74,24 @@ def get_mask_X_edge_points(mask):
     return edge_x_points
 
 def filter_edge_x_coords_in_area(edge_points, x_detections_per_area):
+    """
+       This function filters the x-coordinates of edge points for detected objects
+       that fall within specified detection areas.
+
+       Arguments:
+       edge_points (list of np.ndarray) - A list of arrays, where each array contains the coordinates
+                                            of the four edge points (top-right, top-left, bottom-right,
+                                            bottom-left) of detected objects.
+
+       x_detections_per_area (list of lists) - A list of detection areas, where each area is defined
+                                                 by an array in the format [min_x, y_min, max_x, max_y].
+
+       Returns:
+       x_coords_in_area (list of lists) - A list of filtered x-coordinates for the detected objects
+                                            that fall within the specified areas. Each list contains four
+                                            x-values corresponding to the top-right, top-left, bottom-right,
+                                            and bottom-left x-coordinates.
+       """
     x_coords_in_area = []
     for detection in x_detections_per_area:
         for point in edge_points:
@@ -116,7 +134,20 @@ def visualize_masks(image_path, masks):
 
 
 def calculate_horizontal_distance(box1, box2):
-    # This function calculates the horizontal distance between two bounding boxes.
+    """
+       Calculate the horizontal distance between two bounding boxes.
+
+       Arguments:
+       box1 (list or tuple): Coordinates of the first bounding box in the format
+                             [min_x1, y_min1, max_x1, y_max1].
+
+       box2 (list or tuple): Coordinates of the second bounding box in the format
+                             [min_x2, y_min2, max_x2, y_max2].
+
+       Returns:
+       float: The distance between the maximum x-coordinate of box1 and the minimum
+              x-coordinate of box2. A positive value indicates box2 is to the right of box1.
+       """
     x_min1, _, x_max1, _ = box1
     x_min2, _, x_max2, _ = box2
     return x_min2 - x_max1

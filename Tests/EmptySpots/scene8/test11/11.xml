@@ -1,12 +1,12 @@
 <annotation>
-	<folder>test19</folder>
-	<filename>19.jpg</filename>
-	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\scene8\test19\19.jpg</path>
+	<folder>test11</folder>
+	<filename>11.jpg</filename>
+	<path>/Users/shiraadler/PycharmProjects/new/Label-Img/Empty_spot/scene8/test11/11.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
 	<size>
-		<width>640</width>
+		<width>565</width>
 		<height>360</height>
 		<depth>3</depth>
 	</size>
@@ -17,10 +17,22 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>300</xmin>
-			<ymin>138</ymin>
-			<xmax>489</xmax>
-			<ymax>320</ymax>
+			<xmin>83</xmin>
+			<ymin>122</ymin>
+			<xmax>183</xmax>
+			<ymax>307</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>empty</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>334</xmin>
+			<ymin>143</ymin>
+			<xmax>473</xmax>
+			<ymax>305</ymax>
 		</bndbox>
 	</object>
 </annotation>

@@ -1,13 +1,13 @@
 <annotation>
-	<folder>parking_area_8</folder>
+	<folder>parking_area_10</folder>
 	<filename>0.jpg</filename>
-	<path>/Users/shiraadler/PycharmProjects/new/Label-Img/Parking_areas/parking_area_8/0.jpg</path>
+	<path>/Users/shiraadler/PycharmProjects/new/Label-Img/Parking_areas/parking_area_10/0.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
 	<size>
-		<width>640</width>
-		<height>360</height>
+		<width>1920</width>
+		<height>1080</height>
 		<depth>3</depth>
 	</size>
 	<segmented>0</segmented>
@@ -18,9 +18,9 @@
 		<difficult>0</difficult>
 		<bndbox>
 			<xmin>1</xmin>
-			<ymin>107</ymin>
-			<xmax>640</xmax>
-			<ymax>360</ymax>
+			<ymin>341</ymin>
+			<xmax>1920</xmax>
+			<ymax>1080</ymax>
 		</bndbox>
 	</object>
 </annotation>
