@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 
 from Utils.Yolo import *
 from Utils.MarkParkingArea import parking_mark, mixed_parking_mark
-from Utils.ExtractEmptySpots import detections_in_area, handle_horizontal_vertical_area
+from Utils.ExtractEmptySpots import handle_diagonal_area, detections_in_area
 import matplotlib.pyplot as plt
 
 
@@ -18,59 +18,214 @@ class Tests(unittest.TestCase):
     success_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
     failure_dict = {"parallel": 0, "vertical": 0, "diagonal": 0}
 
+    def test_scene1_test1(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test1")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene1_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test2")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene1_test4(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test4")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene1_test5(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test5")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene1_test6(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test6")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene1_test7(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test7")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene1_test8(self):
+        scene_path = os.path.join(self.base_dir, "scene1")
+        test_path = os.path.join(scene_path, "test8")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
     # Scene 2
     def test_scene2_test1(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test1")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test2(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test2")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test3(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test4(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test4")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test5(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test5")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test6(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test6")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test7(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test7")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
 
     def test_scene2_test8(self):
-        scene_path = os.path.join(self.base_dir, "MovingCars/Scene2")
+        scene_path = os.path.join(self.base_dir, "scene2")
         test_path = os.path.join(scene_path, "test8")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    # Scene 3
+    def test_scene3_test1(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test1")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test2")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test3(self):
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test3")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene3_test4(self):
+        # This test had a correct prediction, and another one on an existing car which
+        # is incorrect. The reason for this is that YOLO didn't detect the car.
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test4")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    # def test_scene3_test5(self):
+    #     # This test had a correct prediction, and another one on an exicting car which
+    #     # is incorrect. The reason for this is that YOLO did'nt detect the car.
+    #     # TODO: this test is very very similar to the last one, maybe we should delete it
+    #     scene_path = os.path.join(self.base_dir, "scene3")
+    #     test_path = os.path.join(scene_path, "test5")
+    #     ious = self.internal_test_code(scene_path, test_path)
+    #     for iou in ious:
+    #         self.assertTrue(iou)
+
+    def test_scene3_test6(self):
+        # This test had a correct prediction, and another one on an exicting car which
+        # is incorrect. The reason for this is that YOLO did'nt detect the car.
+        # TODO: this test is very very similar to the two last one, maybe we should delete it
+        scene_path = os.path.join(self.base_dir, "scene3")
+        test_path = os.path.join(scene_path, "test6")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    # Scene 4
+    def test_scene4_test1(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test1")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene4_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test2")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene4_test3(self):
+        # one of the bounding boxes includes a car (or half a car)
+        # that was not detected by YOLO
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test3")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene4_test4(self):
+        # this test doesn't pass because there is a motorcycle in the parking,
+        # and we don't detect anything except cars
+        scene_path = os.path.join(self.base_dir, "scene4")
+        test_path = os.path.join(scene_path, "test4")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    # Scene 5
+    def test_scene5_test1(self):
+        scene_path = os.path.join(self.base_dir, "scene5")
+        test_path = os.path.join(scene_path, "test1")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene5_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene5")
+        test_path = os.path.join(scene_path, "test2")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene5_test3(self):
+        scene_path = os.path.join(self.base_dir, "scene5")
+        test_path = os.path.join(scene_path, "test3")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -251,9 +406,89 @@ class Tests(unittest.TestCase):
     #     for iou in ious:
     #         self.assertTrue(iou)
 
+    # Scene 9
+    def test_scene9_test1(self):
+        scene_path = os.path.join(self.base_dir, "scene9")
+        test_path = os.path.join(scene_path, "test1")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene9_test2(self):
+        scene_path = os.path.join(self.base_dir, "scene9")
+        test_path = os.path.join(scene_path, "test2")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene9_test3(self):
+        scene_path = os.path.join(self.base_dir, "scene9")
+        test_path = os.path.join(scene_path, "test3")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene9_test4(self):
+        scene_path = os.path.join(self.base_dir, "scene9")
+        test_path = os.path.join(scene_path, "test4")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene9_test5(self):
+        scene_path = os.path.join(self.base_dir, "scene9")
+        test_path = os.path.join(scene_path, "test5")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_scene9_test6(self):
+        scene_path = os.path.join(self.base_dir, "scene9")
+        test_path = os.path.join(scene_path, "test6")
+        ious = self.internal_test_code(scene_path, test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
     # mixed
     def test_mixed_test1(self):
         mixed_test_path = os.path.join(self.mixed_test_path, "test1")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test2(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test2")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test3(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test3")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test4(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test4")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    # def test_mixed_test5(self):
+    #     # The right empty spot was not detected due to the angle at which the photo was taken.
+    #     mixed_test_path = os.path.join(self.mixed_test_path, "test5")
+    #     ious = self.internal_test_mixed_code(mixed_test_path)
+    #     for iou in ious:
+    #         self.assertTrue(iou)
+
+    def test_mixed_test6(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test6")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test7(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test7")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -272,6 +507,12 @@ class Tests(unittest.TestCase):
 
     def test_mixed_test10(self):
         mixed_test_path = os.path.join(self.mixed_test_path, "test10")
+        ious = self.internal_test_mixed_code(mixed_test_path)
+        for iou in ious:
+            self.assertTrue(iou)
+
+    def test_mixed_test11(self):
+        mixed_test_path = os.path.join(self.mixed_test_path, "test11")
         ious = self.internal_test_mixed_code(mixed_test_path)
         for iou in ious:
             self.assertTrue(iou)
@@ -422,7 +663,7 @@ class Tests(unittest.TestCase):
                 free_areas.append(posture)
                 continue
 
-            handle_horizontal_vertical_area(detections_per_area, free_spots, free_areas, posture, parking_area_bbox)
+            handle_diagonal_area(masks, parking_area_bbox, free_spots, free_areas, posture)
 
         return free_spots, free_areas
 

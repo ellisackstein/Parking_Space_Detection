@@ -7,6 +7,25 @@ import supervision as sv
 from typing import List, Tuple
 
 
+def save_results(arr, test_path, save_path):
+    # This function gets an array (a rectangle) and 2 paths and saves the image with the rectangle on it
+    image = cv2.imread(test_path)
+
+    for cord in arr:
+        rectangle_coords = cord
+
+        # Draw the rectangle on the image
+        color = (0, 255, 0)
+        thickness = 2
+        cv2.rectangle(image, (int(rectangle_coords[0]), int(rectangle_coords[1])),
+                      (int(rectangle_coords[2]), int(rectangle_coords[3])), color, thickness)
+
+    # Save the image with the rectangles to the specified path
+    cv2.imwrite(save_path, image)
+
+    return save_path
+
+
 def present_masks(image_path, masks):
     # This function presents the mask
 
@@ -219,25 +238,6 @@ def detections_in_area(detections, parking_area_bbox):
     return detections_within_area
 
 
-def save_results(arr, test_path, save_path):
-    # This function gets an array (a rectangle) and 2 paths and saves the image with the rectangle on it
-    image = cv2.imread(test_path)
-
-    for cord in arr:
-        rectangle_coords = cord
-
-        # Draw the rectangle on the image
-        color = (0, 255, 0)
-        thickness = 2
-        cv2.rectangle(image, (int(rectangle_coords[0]), int(rectangle_coords[1])),
-                      (int(rectangle_coords[2]), int(rectangle_coords[3])), color, thickness)
-
-    # Save the image with the rectangles to the specified path
-    cv2.imwrite(save_path, image)
-
-    return save_path
-
-
 def convert_masks_cords(masks_coordinates):
     return [(int(points[0][0]),
              int(points[1][1]),
@@ -265,9 +265,7 @@ def handle_diagonal_area(masks, parking_area_bbox, free_spots, free_areas, postu
 
 def handle_horizontal_vertical_area(detections_per_area, free_spots, free_areas, posture, parking_area_bbox):
     # This function handles the horizontal and vertical parking areas
-
     reference_car = find_average_car(detections_per_area)
-
     free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
     free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
