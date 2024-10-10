@@ -1,7 +1,7 @@
 <annotation>
 	<folder>test11</folder>
-	<filename>11.jpeg</filename>
-	<path>C:\Users\Elli\PycharmProjects\Label Img\Empty_spot\mixed\test11\11.jpeg</path>
+	<filename>ussishkin.jpeg</filename>
+	<path>/Users/shiraadler/PycharmProjects/new/Label-Img/Empty_spot/mixed/test11/ussishkin.jpeg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -14,13 +14,13 @@
 	<object>
 		<name>parallel</name>
 		<pose>Unspecified</pose>
-		<truncated>1</truncated>
+		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0</xmin>
-			<ymin>1430</ymin>
-			<xmax>3475</xmax>
-			<ymax>2073</ymax>
+			<xmin>678</xmin>
+			<ymin>1415</ymin>
+			<xmax>3331</xmax>
+			<ymax>2088</ymax>
 		</bndbox>
 	</object>
 </annotation>
