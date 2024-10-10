@@ -82,11 +82,11 @@ def get_mask_edge_points(mask):
         return np.array([x_min, y_min, x_max, y_max])
 
 
-def distance_between_cars(box1, box2):
+def distance_between_cars(box1, box2, parking_spot_width):
     # This function calculates the horizontal distance between two bounding boxes.
     x_min1, _, x_max1, _ = box1
     x_min2, _, x_max2, _ = box2
-    return x_min2 - x_max1
+    return x_max2 - x_max1 - parking_spot_width
 
 
 def distance_between_car_and_edge(frame, car, side):
@@ -135,7 +135,7 @@ def find_average_diagonal_car(coords):
         avg1, avg2 = [(x1 + x4) / 2, (y1 + y4) / 2], [(x2 + x3) / 2, (y2 + y3) / 2]
         average_points.append(euclidean_distance(avg1, avg2))
 
-    return np.mean(average_points) * 1.25
+    return np.mean(average_points)
 
 
 def euclidean_distance(coord1, coord2):
@@ -164,7 +164,7 @@ def free_parking_between_cars(free_spots, free_areas, posture, car_detections, p
 
     for i in range(len(car_detections) - 1):
         # Calculate the horizontal distance between the current car and the next car
-        distance = distance_between_cars(car_detections[i], car_detections[i + 1])
+        distance = distance_between_cars(car_detections[i], car_detections[i + 1], parking_spot_width)
         if distance >= parking_spot_width:
             free_spots.append(new_parking_spot(car_detections, i))
             free_areas.append(posture)
@@ -298,7 +298,7 @@ def find_empty_spots(image_path, detections, masks, parking_areas) -> Tuple[List
 
         else:
             handle_horizontal_vertical_area(detections_per_area, free_spots, free_areas, posture, parking_area_bbox)
-
+    #present_results(free_spots, image_path)
     return free_spots, free_areas
 
 # present_results([parking_area_bbox], image_path)
