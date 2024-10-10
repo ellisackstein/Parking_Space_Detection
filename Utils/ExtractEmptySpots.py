@@ -316,7 +316,7 @@ def find_empty_spots(image_path, detections, masks, parking_areas) -> Tuple[List
 
         else:
             handle_horizontal_vertical_area(detections_per_area, free_spots, free_areas, posture, parking_area_bbox)
-    present_results(free_spots, image_path)
+    # present_results(free_spots, image_path)
     return free_spots, free_areas
 
 # present_results([parking_area_bbox], image_path)
