@@ -69,7 +69,8 @@ class Tests(unittest.TestCase):
 
     # Scene 2
     def test_scene2_test1(self):
-        scene_path = os.path.join(self.base_dir, "scene2")
+        self.join = os.path.join(self.base_dir, "scene2")
+        scene_path = self.join
         test_path = os.path.join(scene_path, "test1")
         ious = self.internal_test_code(scene_path, test_path)
         for iou in ious:
