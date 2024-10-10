@@ -219,6 +219,22 @@ def detections_in_area(detections, parking_area_bbox):
     return detections_within_area
 
 
+def detections_in_area_(masks, parking_area_bbox):
+    # This function gets a detections list and a parking area bounding box and returns
+    # only the detections that are within the bounding box
+
+    xmin_area, ymin_area, xmax_area, ymax_area = parking_area_bbox
+    detections_within_area = []
+    for mask in masks:
+        xmin_det, ymin_det, xmax_det, ymax_det = mask[0][0], mask[1][1], mask[2][0], mask[3][1]
+        if xmin_area <= int(xmin_det) and \
+                ymin_area <= int(ymin_det) and \
+                xmax_area >= int(xmax_det) and \
+                ymax_area >= int(ymax_det):
+            detections_within_area.append(mask)
+    return detections_within_area
+
+
 def save_results(arr, test_path, save_path):
     # This function gets an array (a rectangle) and 2 paths and saves the image with the rectangle on it
     image = cv2.imread(test_path)
@@ -251,14 +267,16 @@ def handle_diagonal_area(masks, parking_area_bbox, free_spots, free_areas, postu
     # Convert multi-dimensional NumPy array to list
     masks_coordinates = [get_mask_edge_points(mask).tolist() for mask in masks]
 
-    # Find average car
-    reference_car = find_average_diagonal_car(masks_coordinates)
-
     # Extract coordinates in the format (min_x, min_y) and (max_x, max_y)
     converted_cords = convert_masks_cords(masks_coordinates)
 
-    # Append the free spaces to free spots array
     detections_per_area = detections_in_area(converted_cords, parking_area_bbox)
+    detections_per_area_ = detections_in_area_(masks_coordinates, parking_area_bbox)
+
+    # Find average car
+    reference_car = find_average_diagonal_car(detections_per_area_)
+
+    # Append the free spaces to free spots array
     free_parking_between_cars(free_spots, free_areas, posture, detections_per_area, reference_car)
     free_parking_in_edge(free_spots, free_areas, posture, detections_per_area, reference_car, parking_area_bbox)
 
@@ -298,7 +316,7 @@ def find_empty_spots(image_path, detections, masks, parking_areas) -> Tuple[List
 
         else:
             handle_horizontal_vertical_area(detections_per_area, free_spots, free_areas, posture, parking_area_bbox)
-    #present_results(free_spots, image_path)
+    present_results(free_spots, image_path)
     return free_spots, free_areas
 
 # present_results([parking_area_bbox], image_path)
